@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Evrard - Portfolio</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: white;
+            color: black;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: white;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: black;
+        }
+        
+        /* Contenu principal */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        /* Logo principal sur la landing page */
+        .main-logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 50px;
+        }
+        
+        /* Section de contact et présentation */
+        .bio-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 20px 20px;
+        }
+        
+        .bio-text {
+            margin-bottom: 30px;
+        }
+        
+        /* Galerie */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 300px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Pour cacher les sections non actives */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" onclick="showSection('home')">
+            <svg class="logo" viewBox="0 0 100 100">
+                <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="2"/>
+                <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
+                <line x1="0" y1="50" x2="100" y2="50" stroke="black" stroke-width="2"/>
+            </svg>
+        </a>
+        <div class="nav-links">
+            <a href="#" onclick="showSection('gallery')">Galerie</a>
+            <a href="#" onclick="showSection('contact')">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Page d'accueil -->
+    <section id="home" class="main-content">
+        <svg class="main-logo" viewBox="0 0 100 100">
+            <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="2"/>
+            <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
+            <line x1="0" y1="50" x2="100" y2="50" stroke="black" stroke-width="2"/>
+        </svg>
+    </section>
+
+    <!-- Galerie -->
+    <section id="gallery" class="gallery-container hidden">
+        <div class="gallery-item">Œuvre 1</div>
+        <div class="gallery-item">Œuvre 2</div>
+        <div class="gallery-item">Œuvre 3</div>
+        <div class="gallery-item">Œuvre 4</div>
+        <div class="gallery-item">Œuvre 5</div>
+        <div class="gallery-item">Œuvre 6</div>
+    </section>
+
+    <!-- Contact et Bio -->
+    <section id="contact" class="bio-container hidden">
+        <div class="bio-text">
+            <p>Artiste autodidacte, je me passionne les arts visuels depuis mon plus jeune âge mais ce n'est que tardivement que j'ai décidé de me tourner vers la peinture. Mark Rothko, Hans Hartung, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Jackson Pollock, Pierre Soulages sont autant d'artistes qui ont profondément influencé mon sens de l'esthétique et mon goût pour la création.</p>
+            <br>
+            <p>Mon travail, composé de formes abstraites colorées évoquant parfois des silhouettes animales ou végétales, se situe à la croisée des chemins entre contrôle et lâcher-prise, réflexion et spontanéité. Profondément intime, il accorde une place majeure au processus créatif au travers duquel je cherche à explorer les émotions, les perceptions et les concepts au delà de la figuration.</p>
+        </div>
+        <div class="contact-info">
+            <p>evrard.arthur@gmail.com</p>
+        </div>
+    </section>
+
+    <script>
+        // Fonction pour afficher la section désirée
+        function showSection(sectionId) {
+            // Cacher toutes les sections
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('gallery').classList.add('hidden');
+            document.getElementById('contact').classList.add('hidden');
+            
+            // Afficher la section demandée
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+        
+        // Afficher la section d'accueil par défaut
+        window.onload = function() {
+            showSection('home');
+        };
+    </script>
+</body>
+</html>
