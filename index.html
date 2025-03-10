@@ -28,11 +28,13 @@
             width: 100%;
             top: 0;
             background-color: white;
+            z-index: 100;
         }
         
         .logo {
             width: 40px;
             height: 40px;
+            object-fit: contain;
         }
         
         .nav-links {
@@ -59,7 +61,7 @@
         .main-logo {
             width: 200px;
             height: 200px;
-            margin-bottom: 50px;
+            object-fit: contain;
         }
         
         /* Section de contact et présentation */
@@ -73,6 +75,11 @@
             margin-bottom: 30px;
         }
         
+        .contact-info {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
         /* Galerie */
         .gallery-container {
             max-width: 1200px;
@@ -80,20 +87,86 @@
             padding: 120px 20px 20px 20px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
         }
         
         .gallery-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-image {
+            width: 100%;
             height: 300px;
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Empêche la déformation des images */
+        }
+        
+        .gallery-description {
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
         }
         
         /* Pour cacher les sections non actives */
         .hidden {
             display: none;
+        }
+        
+        /* Media queries pour la responsivité */
+        @media screen and (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .main-logo {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .bio-container {
+                padding: 100px 15px 15px 15px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .nav-links a {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .main-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .gallery-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .gallery-image {
+                height: 250px;
+            }
+            
+            .bio-text {
+                font-size: 15px;
+            }
         }
     </style>
 </head>
@@ -101,11 +174,7 @@
     <!-- Navigation -->
     <nav>
         <a href="#" onclick="showSection('home')">
-            <svg class="logo" viewBox="0 0 100 100">
-                <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="2"/>
-                <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
-                <line x1="0" y1="50" x2="100" y2="50" stroke="black" stroke-width="2"/>
-            </svg>
+            <img src="logo.png" alt="Logo" class="logo">
         </a>
         <div class="nav-links">
             <a href="#" onclick="showSection('gallery')">Galerie</a>
@@ -115,21 +184,59 @@
 
     <!-- Page d'accueil -->
     <section id="home" class="main-content">
-        <svg class="main-logo" viewBox="0 0 100 100">
-            <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="2"/>
-            <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
-            <line x1="0" y1="50" x2="100" y2="50" stroke="black" stroke-width="2"/>
-        </svg>
+        <img src="logo.png" alt="Logo" class="main-logo">
     </section>
 
     <!-- Galerie -->
     <section id="gallery" class="gallery-container hidden">
-        <div class="gallery-item">Œuvre 1</div>
-        <div class="gallery-item">Œuvre 2</div>
-        <div class="gallery-item">Œuvre 3</div>
-        <div class="gallery-item">Œuvre 4</div>
-        <div class="gallery-item">Œuvre 5</div>
-        <div class="gallery-item">Œuvre 6</div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre1.jpg" alt="Œuvre 1">
+            </div>
+            <div class="gallery-description">
+                Sans titre #1, 80x120cm, Acrylique sur toile
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre2.jpg" alt="Œuvre 2">
+            </div>
+            <div class="gallery-description">
+                Sans titre #2, 60x80cm, Technique mixte
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre3.jpg" alt="Œuvre 3">
+            </div>
+            <div class="gallery-description">
+                Sans titre #3, 100x100cm, Huile sur toile
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre4.jpg" alt="Œuvre 4">
+            </div>
+            <div class="gallery-description">
+                Sans titre #4, 50x70cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre5.jpg" alt="Œuvre 5">
+            </div>
+            <div class="gallery-description">
+                Sans titre #5, 90x90cm, Technique mixte
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre6.jpg" alt="Œuvre 6">
+            </div>
+            <div class="gallery-description">
+                Sans titre #6, 70x70cm, Huile sur toile
+            </div>
+        </div>
     </section>
 
     <!-- Contact et Bio -->
@@ -140,7 +247,7 @@
             <p>Mon travail, composé de formes abstraites colorées évoquant parfois des silhouettes animales ou végétales, se situe à la croisée des chemins entre contrôle et lâcher-prise, réflexion et spontanéité. Profondément intime, il accorde une place majeure au processus créatif au travers duquel je cherche à explorer les émotions, les perceptions et les concepts au delà de la figuration.</p>
         </div>
         <div class="contact-info">
-            <p>evrard.arthur@gmail.com</p>
+            <p>Contact : evrard.arthur@gmail.com</p>
         </div>
     </section>
 
