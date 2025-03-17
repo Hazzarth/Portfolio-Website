@@ -60,6 +60,20 @@
             object-fit: contain;
         }
         
+        @media screen and (max-width: 768px) {
+            .main-logo {
+                width: 300px;
+                height: 300px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .main-logo {
+                width: 250px;
+                height: 250px;
+            }
+        }
+        
         .gallery-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -76,19 +90,37 @@
             opacity: 1;
             transform: translateY(0);
         }
-        @media screen and (max-width: 768px) {
-    .main-logo {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .main-logo {
-        width: 250px;
-        height: 250px;
-    }
-}
+        
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-image img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .gallery-description {
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -107,12 +139,42 @@
     </section>
 
     <section id="portfolio" class="gallery-container">
-        <div class="gallery-item"><img src="oeuvre1.JPG" alt="Œuvre 1"></div>
-        <div class="gallery-item"><img src="oeuvre2.jpg" alt="Œuvre 2"></div>
-        <div class="gallery-item"><img src="oeuvre3.jpg" alt="Œuvre 3"></div>
-        <div class="gallery-item"><img src="oeuvre4.JPG" alt="Œuvre 4"></div>
-        <div class="gallery-item"><img src="oeuvre5.JPG" alt="Œuvre 5"></div>
-        <div class="gallery-item"><img src="oeuvre6.JPG" alt="Œuvre 6"></div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre1.JPG" alt="Œuvre 1">
+            </div>
+            <div class="gallery-description">Sans titre #1, 60x80cm, Acrylique sur toile</div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre2.jpg" alt="Œuvre 2">
+            </div>
+            <div class="gallery-description">Sans titre #2, 60x80cm, Acrylique sur toile</div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre3.jpg" alt="Œuvre 3">
+            </div>
+            <div class="gallery-description">Sans titre #3, 21x30cm, Acrylique sur papier</div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre4.JPG" alt="Œuvre 4">
+            </div>
+            <div class="gallery-description">Sans titre #4, 30x21cm, Acrylique sur papier</div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre5.JPG" alt="Œuvre 5">
+            </div>
+            <div class="gallery-description">Sans titre #5, 21x30cm, Acrylique sur papier</div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image">
+                <img src="oeuvre6.JPG" alt="Œuvre 6">
+            </div>
+            <div class="gallery-description">Sans titre #6, 30x21cm, Acrylique sur papier</div>
+        </div>
     </section>
 
     <script>
