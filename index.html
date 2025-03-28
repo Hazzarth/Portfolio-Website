@@ -6,6 +6,7 @@
     <title>Arthur Evrard - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Reset et styles de base */
         * {
             margin: 0;
             padding: 0;
@@ -48,13 +49,6 @@
             color: black;
         }
         
-        /* Landing page full-width image */
-        .landing-image {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-        }
-        
         /* Contenu principal */
         .main-content {
             display: flex;
@@ -64,54 +58,14 @@
             flex-direction: column;
         }
         
-        /* Galerie */
-        .gallery-container, .landing-gallery {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 120px 20px 20px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .gallery-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .gallery-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .gallery-image img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        /* Logo principal sur la landing page */
+        .main-logo {
+            width: 600px;
+            height: 600px;
             object-fit: contain;
-            transition: transform 0.3s ease-in-out;
-        }
-     
-        .gallery-image:hover img {
-            transform: scale(1.1);
         }
         
-        .gallery-description {
-            font-size: 14px;
-            color: #333;
-            margin-top: 5px;
-            text-align: center;
-        }
-        
-        /* Bio et contact */
+        /* Section de contact et présentation */
         .bio-container {
             max-width: 800px;
             margin: 0 auto;
@@ -127,14 +81,76 @@
             margin-top: 20px;
         }
         
-        /* Lightbox */
+        /* Galerie */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Maintient un rapport d'aspect carré */
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+            position: relative; /* Ajout pour positionnement absolu de l'image */
+            cursor: pointer; /* Indique que l'image est cliquable */
+        }
+        
+        .gallery-image img {
+            position: absolute; /* Position absolue dans le conteneur */
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changé de 'cover' à 'contain' pour éviter la déformation */
+            transition: transform 0.3s ease-in-out; /* Animation fluide */
+        }
+     
+        .gallery-image:hover img {
+            transform: scale(1.1); /* Zoom de 10% */
+        }
+        
+        .gallery-description {
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+            text-align: center; /* Cette ligne centre le texte */
+        }
+        
+        /* Pour cacher les sections non actives */
+        .hidden {
+            display: none;
+        }
+        
+        /* Nouvelle section pour afficher la galerie sur la landing page */
+        .landing-gallery {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Lightbox styles */
         .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.85); /* Fond blanc avec 15% de transparence */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -183,19 +199,23 @@
             cursor: pointer;
         }
         
-        /* Pour cacher les sections non actives */
-        .hidden {
-            display: none;
-        }
-        
-        /* Media queries */
+        /* Media queries pour la responsivité */
         @media screen and (max-width: 768px) {
             .gallery-container, .landing-gallery {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
-            .landing-image {
-                object-fit: cover;
+            .main-logo {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .bio-container {
+                padding: 100px 15px 15px 15px;
+            }
+            
+            .lightbox-image {
+                max-height: 80vh;
             }
         }
         
@@ -205,9 +225,33 @@
                 font-size: 14px;
             }
             
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .main-logo {
+                width: 250px;
+                height: 250px;
+            }
+            
             .gallery-container, .landing-gallery {
                 grid-template-columns: 1fr;
                 gap: 25px;
+            }
+            
+            .gallery-image {
+                aspect-ratio: 4/3; /* Rapport d'aspect légèrement différent pour mobile */
+            }
+            
+            .bio-text {
+                font-size: 15px;
+            }
+            
+            .lightbox-close {
+                top: -30px;
+                right: 0;
+                font-size: 24px;
             }
         }
     </style>
@@ -226,7 +270,85 @@
 
     <!-- Page d'accueil -->
     <section id="home">
-        <img src="landing-photo.jpg" alt="Landing Image" class="landing-image">
+        <div class="main-content">
+            <img src="logo.png" alt="Logo" class="main-logo">
+        </div>
+        
+        <!-- Galerie intégrée à la landing page -->
+        <div class="landing-gallery">
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
+                    <img src="oeuvre1.jpg" alt="Œuvre 1">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 1, 60x80cm, Acrylique sur toile
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
+                    <img src="oeuvre2.jpg" alt="Œuvre 2">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 2, 60x80cm, Acrylique sur toile
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
+                    <img src="oeuvre3.jpg" alt="Œuvre 3">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 3, 21x30cm, Acrylique sur papier
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
+                    <img src="oeuvre4.jpg" alt="Œuvre 4">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 4, 30x21cm, Acrylique sur papier
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 21x30cm, Acrylique sur papier')">
+                    <img src="oeuvre5.jpg" alt="Œuvre 5">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 5, 21x30cm, Acrylique sur papier
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
+                    <img src="oeuvre6.jpg" alt="Œuvre 6">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 6, 30x21cm, Acrylique sur papier
+                </div>
+            </div>
+             <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
+                    <img src="oeuvre7.jpg" alt="Œuvre 7">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 7, 30x42cm, Acrylique sur papier
+                </div>
+            </div>
+             <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
+                    <img src="oeuvre8.jpg" alt="Œuvre 8">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 8, 30x42cm, Acrylique sur papier
+                </div>
+            </div>
+             <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
+                    <img src="oeuvre9.jpg" alt="Œuvre 9">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 9, 21x30cm, Acrylique sur papier
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Portfolio (anciennement Galerie) -->
@@ -280,29 +402,29 @@
             </div>
         </div>
         <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
-                <img src="oeuvre7.jpg" alt="Œuvre 7">
+                <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
+                    <img src="oeuvre7.jpg" alt="Œuvre 7">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 7, 30x42cm, Acrylique sur papier
+                </div>
             </div>
-            <div class="gallery-description">
-                Sans titre 7, 30x42cm, Acrylique sur papier
+             <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
+                    <img src="oeuvre8.jpg" alt="Œuvre 8">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 8, 30x42cm, Acrylique sur papier
+                </div>
             </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
-                <img src="oeuvre8.jpg" alt="Œuvre 8">
+             <div class="gallery-item">
+                <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
+                    <img src="oeuvre9.jpg" alt="Œuvre 9">
+                </div>
+                <div class="gallery-description">
+                    Sans titre 9, 21x30cm, Acrylique sur papier
+                </div>
             </div>
-            <div class="gallery-description">
-                Sans titre 8, 30x42cm, Acrylique sur papier
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
-                <img src="oeuvre9.jpg" alt="Œuvre 9">
-            </div>
-            <div class="gallery-description">
-                Sans titre 9, 21x30cm, Acrylique sur papier
-            </div>
-        </div>
     </section>
 
     <!-- Contact et Bio -->
