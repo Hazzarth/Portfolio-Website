@@ -6,7 +6,6 @@
     <title>Arthur Evrard - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Previous CSS remains the same, with minor modifications */
         * {
             margin: 0;
             padding: 0;
@@ -56,8 +55,17 @@
             object-fit: cover;
         }
         
-        /* Gallery and Section Styling */
-        .gallery-container {
+        /* Contenu principal */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        /* Galerie */
+        .gallery-container, .landing-gallery {
             max-width: 1200px;
             margin: 0 auto;
             padding: 120px 20px 20px 20px;
@@ -103,16 +111,86 @@
             text-align: center;
         }
         
-        /* Existing Lightbox and other styles remain the same */
+        /* Bio et contact */
+        .bio-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 20px 20px;
+        }
         
-        /* For hiding sections */
+        .bio-text {
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lightbox-caption {
+            color: #333;
+            font-size: 16px;
+            margin-top: 15px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 28px;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Pour cacher les sections non actives */
         .hidden {
             display: none;
         }
         
-        /* Media Queries */
+        /* Media queries */
         @media screen and (max-width: 768px) {
-            .gallery-container {
+            .gallery-container, .landing-gallery {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
@@ -127,7 +205,7 @@
                 font-size: 14px;
             }
             
-            .gallery-container {
+            .gallery-container, .landing-gallery {
                 grid-template-columns: 1fr;
                 gap: 25px;
             }
@@ -141,20 +219,18 @@
             <img src="logo.png" alt="Logo" class="logo">
         </a>
         <div class="nav-links">
-            <a href="#" onclick="showSection('portfolio-peintures')">Peintures</a>
-            <a href="#" onclick="showSection('portfolio-street-art')">Street Art</a>
-            <a href="#" onclick="showSection('portfolio-architecture')">Architecture</a>
+            <a href="#" onclick="showSection('portfolio')">Portfolio</a>
             <a href="#" onclick="showSection('contact')">Contact</a>
         </div>
     </nav>
 
-    <!-- Landing Page -->
+    <!-- Page d'accueil -->
     <section id="home">
         <img src="landing-photo.jpg" alt="Landing Image" class="landing-image">
     </section>
 
-    <!-- Portfolio - Peintures -->
-    <section id="portfolio-peintures" class="gallery-container hidden">
+    <!-- Portfolio (anciennement Galerie) -->
+    <section id="portfolio" class="gallery-container hidden">
         <div class="gallery-item">
             <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
                 <img src="oeuvre1.jpg" alt="Œuvre 1">
@@ -163,37 +239,73 @@
                 Sans titre 1, 60x80cm, Acrylique sur toile
             </div>
         </div>
-        <!-- Repeat existing painting gallery items here -->
-        <!-- ... existing painting gallery items ... -->
-    </section>
-
-    <!-- Portfolio - Street Art -->
-    <section id="portfolio-street-art" class="gallery-container hidden">
         <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('street-art1.jpg', 'Street Art 1, Description')">
-                <img src="street-art1.jpg" alt="Street Art 1">
+            <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
+                <img src="oeuvre2.jpg" alt="Œuvre 2">
             </div>
             <div class="gallery-description">
-                Street Art 1, Description
+                Sans titre 2, 60x80cm, Acrylique sur toile
             </div>
         </div>
-        <!-- Add more street art gallery items -->
-    </section>
-
-    <!-- Portfolio - Architecture -->
-    <section id="portfolio-architecture" class="gallery-container hidden">
         <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('architecture1.jpg', 'Architecture 1, Description')">
-                <img src="architecture1.jpg" alt="Architecture 1">
+            <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
+                <img src="oeuvre3.jpg" alt="Œuvre 3">
             </div>
             <div class="gallery-description">
-                Architecture 1, Description
+                Sans titre 3, 21x30cm, Acrylique sur papier
             </div>
         </div>
-        <!-- Add more architecture gallery items -->
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
+                <img src="oeuvre4.jpg" alt="Œuvre 4">
+            </div>
+            <div class="gallery-description">
+                Sans titre 4, 30x21cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 21x30cm, Acrylique sur papier')">
+                <img src="oeuvre5.jpg" alt="Œuvre 5">
+            </div>
+            <div class="gallery-description">
+                Sans titre 5, 21x30cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
+                <img src="oeuvre6.jpg" alt="Œuvre 6">
+            </div>
+            <div class="gallery-description">
+                Sans titre 6, 30x21cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
+                <img src="oeuvre7.jpg" alt="Œuvre 7">
+            </div>
+            <div class="gallery-description">
+                Sans titre 7, 30x42cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
+                <img src="oeuvre8.jpg" alt="Œuvre 8">
+            </div>
+            <div class="gallery-description">
+                Sans titre 8, 30x42cm, Acrylique sur papier
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
+                <img src="oeuvre9.jpg" alt="Œuvre 9">
+            </div>
+            <div class="gallery-description">
+                Sans titre 9, 21x30cm, Acrylique sur papier
+            </div>
+        </div>
     </section>
 
-    <!-- Contact et Bio (remains the same) -->
+    <!-- Contact et Bio -->
     <section id="contact" class="bio-container hidden">
         <div class="bio-text">
             <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Yves Klein, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Hans Hartung, Pierre Soulages, sont autant d'artistes dont les œuvres ont profondément nourri mon sens de l'esthétique et influencé mon approche de la peinture.</p>
@@ -207,7 +319,7 @@
         </div>
     </section>
 
-    <!-- Lightbox (remains the same) -->
+    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
@@ -217,20 +329,18 @@
     </div>
 
     <script>
-        // Updated showSection function to handle new portfolio sections
+        // Fonction pour afficher la section désirée
         function showSection(sectionId) {
-            // Hide all sections
+            // Cacher toutes les sections
             document.getElementById('home').classList.add('hidden');
-            document.getElementById('portfolio-peintures').classList.add('hidden');
-            document.getElementById('portfolio-street-art').classList.add('hidden');
-            document.getElementById('portfolio-architecture').classList.add('hidden');
+            document.getElementById('portfolio').classList.add('hidden');
             document.getElementById('contact').classList.add('hidden');
             
-            // Show the requested section
+            // Afficher la section demandée
             document.getElementById(sectionId).classList.remove('hidden');
         }
         
-        // Lightbox functions remain the same as in the previous version
+        // Fonction pour ouvrir la lightbox
         function openLightbox(imageSrc, caption) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImage = document.getElementById('lightbox-image');
@@ -240,30 +350,34 @@
             lightboxCaption.textContent = caption;
             lightbox.classList.add('active');
             
+            // Empêcher le défilement de la page quand la lightbox est ouverte
             document.body.style.overflow = 'hidden';
         }
         
+        // Fonction pour fermer la lightbox
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             
+            // Réactiver le défilement de la page
             document.body.style.overflow = 'auto';
         }
         
-        // Event listeners remain the same
+        // Fermer la lightbox quand on clique en dehors de l'image
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeLightbox();
             }
         });
         
+        // Fermer la lightbox avec la touche Échap
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeLightbox();
             }
         });
         
-        // Show home section by default
+        // Afficher la section d'accueil par défaut
         window.onload = function() {
             showSection('home');
         };
