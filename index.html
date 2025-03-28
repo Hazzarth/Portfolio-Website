@@ -24,7 +24,7 @@
         nav {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
+            padding: 5px;
             position: fixed;
             width: 100%;
             top: 0;
@@ -33,9 +33,10 @@
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 40px;
+            height: 40px;
             object-fit: contain;
+            margin-left: 30px; /* Ajoute de l'espace entre le logo et le bord gauche */
         }
         
         .nav-links {
@@ -60,8 +61,8 @@
         
         /* Logo principal sur la landing page */
         .main-logo {
-            width: 600px;
-            height: 600px;
+            width: 300px;
+            height: 300px;
             object-fit: contain;
         }
         
@@ -83,12 +84,12 @@
         
         /* Galerie */
         .gallery-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 120px 20px 20px 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
         
         .gallery-item {
@@ -135,12 +136,12 @@
         
         /* Nouvelle section pour afficher la galerie sur la landing page */
         .landing-gallery {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
         
         /* Lightbox styles */
@@ -206,8 +207,8 @@
             }
             
             .main-logo {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 250px;
             }
             
             .bio-container {
