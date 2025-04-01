@@ -243,7 +243,16 @@
             }
             
             .gallery-image {
-                aspect-ratio: 4/3; /* Rapport d'aspect légèrement différent pour mobile */
+                aspect-ratio: auto; /* Rapport d'aspect légèrement différent pour mobile */
+                height: auto;
+                max-height: 90vh; /* 90% de la hauteur de la fenêtre */
+            }
+            
+            .gallery-image img {
+                position: relative; /* Changer de absolute à relative */
+                width: 100%;
+                height: auto;
+                max-height: 90vh;
             }
             
             .bio-text {
