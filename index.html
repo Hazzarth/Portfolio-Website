@@ -85,7 +85,7 @@
         .gallery-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 120px 20px 20px 20px;
+            padding: 120px 10px 10px 10px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             row-gap: 70px; /* Espacement vertical entre les éléments */
@@ -138,7 +138,7 @@
         .landing-gallery {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px 10px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             row-gap: 70px; /* Espacement vertical entre les éléments */
@@ -208,8 +208,8 @@
             }
             
             .main-logo {
-                width: 100px;
-                height: 100px;
+                width: 250px;
+                height: 250px;
             }
             
             .bio-container {
@@ -228,13 +228,13 @@
             }
             
             .logo {
-                width: 30px;
-                height: 30px;
+                width: 60px;
+                height: 60px;
             }
             
             .main-logo {
-                width: 100px;
-                height: 100px;
+                width: 250px;
+                height: 250px;
             }
             
             .gallery-container, .landing-gallery {
@@ -265,7 +265,8 @@
             <img src="logo.png" alt="Logo" class="logo">
         </a>
         <div class="nav-links">
-            <a href="#" onclick="showSection('portfolio')">Portfolio</a>
+            <a href="#" onclick="showSection('peinture')">Peinture</a>
+            <a href="#" onclick="showSection('photographie')">Photographie</a>
             <a href="#" onclick="showSection('contact')">Contact</a>
         </div>
     </nav>
@@ -311,11 +312,11 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 80x100cm, Acrylique sur toile')">
+                <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 21x30cm, Acrylique sur papier')">
                     <img src="oeuvre5.jpg" alt="Œuvre 5">
                 </div>
                 <div class="gallery-description">
-                    Sans titre 5, 80x100cm, Acrylique sur toile
+                    Sans titre 5, 21x30cm, Acrylique sur papier
                 </div>
             </div>
             <div class="gallery-item">
@@ -353,8 +354,8 @@
         </div>
     </section>
 
-    <!-- Portfolio (anciennement Galerie) -->
-    <section id="portfolio" class="gallery-container hidden">
+    <!-- Portfolio/peinture (anciennement Galerie) -->
+    <section id="peinture" class="gallery-container hidden">
         <div class="gallery-item">
             <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
                 <img src="oeuvre1.jpg" alt="Œuvre 1">
@@ -429,6 +430,58 @@
             </div>
     </section>
 
+    <section id="photographie" class="gallery-container hidden">
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('photo1.jpg', 'C1, 2025')">
+                <img src="photo1.jpg" alt="Photo 1">
+            </div>
+            <div class="gallery-description">
+                C1, 2025
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('photo2.jpg', 'C2, 2025')">
+                <img src="photo2.jpg" alt="Photo 2">
+            </div>
+            <div class="gallery-description">
+                C2, 2025
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('photo3.jpg', 'C3, 2025')">
+                <img src="photo3.jpg" alt="Photo 3">
+            </div>
+            <div class="gallery-description">
+                C3, 2025
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('PATH1.jpg', 'PATH, 2018')">
+                <img src="PATH1.jpg" alt="PATH">
+            </div>
+            <div class="gallery-description">
+                PATH, 2018
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('photo4.jpg', 'N.F., 2024')">
+                <img src="photo4.jpg" alt="Photo 4">
+            </div>
+            <div class="gallery-description">
+                N.F., 2024
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="gallery-image" onclick="openLightbox('Station1.jpg', 'SB1, 2018')">
+                <img src="Station1.jpg" alt="SB1">
+            </div>
+            <div class="gallery-description">
+                SB1, 2018
+            </div>
+        </div>
+        <!-- Répéter le même modèle pour chaque photo -->
+    </section>
+
     <!-- Contact et Bio -->
     <section id="contact" class="bio-container hidden">
         <div class="bio-text">
@@ -457,7 +510,8 @@
         function showSection(sectionId) {
             // Cacher toutes les sections
             document.getElementById('home').classList.add('hidden');
-            document.getElementById('portfolio').classList.add('hidden');
+            document.getElementById('peinture').classList.add('hidden');
+            document.getElementById('photographie').classList.add('hidden');
             document.getElementById('contact').classList.add('hidden');
             
             // Afficher la section demandée
