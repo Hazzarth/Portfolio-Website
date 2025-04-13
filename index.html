@@ -18,18 +18,27 @@
             background-color: white;
             color: black;
             line-height: 1.6;
+            display: flex;
         }
         
-        /* Navigation */
+        /* Navigation verticale */
         nav {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 30px 5px 30px;
+            width: 150px;
+            height: 100vh;
             position: fixed;
-            width: 100%;
+            left: 0;
             top: 0;
+            padding-top: 30px;
+            padding-left: 30px;
             background-color: white;
             z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .logo-container {
+            margin-bottom: 40px;
         }
         
         .logo {
@@ -40,109 +49,80 @@
         
         .nav-links {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
         }
         
         .nav-links a {
-            margin-left: 30px;
+            margin-bottom: 20px;
             text-decoration: none;
             color: black;
         }
         
-        /* Contenu principal */
-        .main-content {
+        /* Structure principale avec décalage pour la navigation */
+        main {
+            flex: 1;
+            margin-left: 150px; /* Correspond à la largeur de la navigation */
+            width: calc(100% - 150px);
+        }
+        
+        /* Structure verticale pour les galeries */
+        .gallery-container, .landing-gallery {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             flex-direction: column;
-        }
-        
-        /* Logo principal sur la landing page */
-        .main-logo {
-            width: 300px;
-            height: 300px;
-            object-fit: contain;
-        }
-        
-        /* Section de contact et présentation */
-        .bio-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 120px 20px 20px 20px;
-        }
-        
-        .bio-text {
-            margin-bottom: 30px;
-            text-align: justify;
-        }
-        
-        .contact-info {
-            margin-top: 20px;
-        }
-        
-        /* Galerie */
-        .gallery-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 120px 10px 10px 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: 70px; /* Espacement vertical entre les éléments */
-            column-gap: 10px; /* Espacement horizontal entre les éléments */
+            align-items: flex-end;
+            padding-top: 30px;
+            padding-bottom: 50px;
+            padding-right: 50px;
+            max-width: 100%;
         }
         
         .gallery-item {
+            width: 66%; /* 2/3 de l'écran maximum */
+            margin-bottom: 100px; /* Espace entre les œuvres pour le défilement */
+            height: 90vh; /* Presque toute la hauteur de l'écran */
             display: flex;
             flex-direction: column;
         }
         
         .gallery-image {
             width: 100%;
-            aspect-ratio: 1 / 1; /* Maintient un rapport d'aspect carré */
+            height: calc(90vh - 30px); /* Hauteur moins l'espace pour la description */
             background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
             overflow: hidden;
-            position: relative; /* Ajout pour positionnement absolu de l'image */
-            cursor: pointer; /* Indique que l'image est cliquable */
+            position: relative;
+            cursor: pointer;
         }
         
         .gallery-image img {
-            position: absolute; /* Position absolue dans le conteneur */
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Changé de 'cover' à 'contain' pour éviter la déformation */
-            transition: transform 0.3s ease-in-out; /* Animation fluide */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease-in-out;
         }
-     
+        
         .gallery-image:hover img {
-            transform: scale(1.1); /* Zoom de 10% */
+            transform: scale(1.05);
         }
         
         .gallery-description {
             font-size: 14px;
             color: #333;
-            margin-top: 5px;
-            text-align: center; /* Cette ligne centre le texte */
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        /* Ajustements pour les sections */
+        section {
+            min-height: auto;
         }
         
         /* Pour cacher les sections non actives */
         .hidden {
             display: none;
-        }
-        
-        /* Nouvelle section pour afficher la galerie sur la landing page */
-        .landing-gallery {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: 70px; /* Espacement vertical entre les éléments */
-            column-gap: 10px; /* Espacement horizontal entre les éléments */
         }
         
         /* Lightbox styles */
@@ -152,7 +132,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.95); /* Fond blanc avec 5% de transparence */
+            background-color: rgba(255, 255, 255, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -201,19 +181,51 @@
             cursor: pointer;
         }
         
+        /* Styles pour la section contact/bio */
+        .bio-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: 50px;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+        
+        .bio-text {
+            width: 66%; /* Maintenir la cohérence avec les images */
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        
+        .contact-info {
+            width: 66%; /* Maintenir la cohérence avec les images */
+            margin-top: 20px;
+        }
+        
         /* Media queries pour la responsivité */
         @media screen and (max-width: 768px) {
-            .gallery-container, .landing-gallery {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            nav {
+                width: 100px;
+                padding-left: 15px;
             }
             
-            .main-logo {
-                width: 150px;
-                height: 150px;
+            main {
+                margin-left: 100px;
+                width: calc(100% - 100px);
             }
             
-            .bio-container {
-                padding: 100px 15px 15px 15px;
+            .gallery-item, .bio-text, .contact-info {
+                width: 75%;
+            }
+            
+            .gallery-item {
+                height: 85vh;
+            }
+            
+            .gallery-image {
+                height: calc(85vh - 30px);
             }
             
             .lightbox-image {
@@ -222,9 +234,14 @@
         }
         
         @media screen and (max-width: 480px) {
-            .nav-links a {
-                margin-left: 15px;
-                font-size: 14px;
+            nav {
+                width: 70px;
+                padding-left: 10px;
+            }
+            
+            main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
             }
             
             .logo {
@@ -232,27 +249,25 @@
                 height: 30px;
             }
             
-            .main-logo {
-                width: 100px;
-                height: 100px;
+            .nav-links a {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            
+            .gallery-item, .bio-text, .contact-info {
+                width: 85%;
             }
             
             .gallery-container, .landing-gallery {
-                grid-template-columns: 1fr;
-                gap: 25px;
+                padding-right: 20px; /* Réduit le padding sur mobile */
+            }
+            
+            .gallery-item {
+                height: 80vh;
             }
             
             .gallery-image {
-                aspect-ratio: auto; /* Rapport d'aspect légèrement différent pour mobile */
-                height: auto;
-                max-height: 90vh; /* 90% de la hauteur de la fenêtre */
-            }
-            
-            .gallery-image img {
-                position: relative; /* Changer de absolute à relative */
-                width: 100%;
-                height: auto;
-                max-height: 90vh;
+                height: calc(80vh - 25px);
             }
             
             .bio-text {
@@ -268,11 +283,13 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation verticale -->
     <nav>
-        <a href="#" onclick="showSection('home')">
-            <img src="logo.png" alt="Logo" class="logo">
-        </a>
+        <div class="logo-container">
+            <a href="#" onclick="showSection('home')">
+                <img src="logo.png" alt="Logo" class="logo">
+            </a>
+        </div>
         <div class="nav-links">
             <a href="#" onclick="showSection('peinture')">Peinture</a>
             <a href="#" onclick="showSection('photographie')">Photographie</a>
@@ -280,246 +297,248 @@
         </div>
     </nav>
 
-    <!-- Page d'accueil -->
-    <section id="home">
-        <div class="main-content">
-            <img src="logo.png" alt="Logo" class="main-logo">
-        </div>
-        
-        <!-- Galerie intégrée à la landing page -->
-        <div class="landing-gallery">
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
-                    <img src="oeuvre1.jpg" alt="Œuvre 1">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 1, 60x80cm, Acrylique sur toile
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
-                    <img src="oeuvre2.jpg" alt="Œuvre 2">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 2, 60x80cm, Acrylique sur toile
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
-                    <img src="oeuvre3.jpg" alt="Œuvre 3">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 3, 21x30cm, Acrylique sur papier
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
-                    <img src="oeuvre4.jpg" alt="Œuvre 4">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 4, 30x21cm, Acrylique sur papier
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 80x100cm, Acrylique sur toile')">
-                    <img src="oeuvre5.jpg" alt="Œuvre 5">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 5, 80x100cm, Acrylique sur toile
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
-                    <img src="oeuvre6.jpg" alt="Œuvre 6">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 6, 30x21cm, Acrylique sur papier
-                </div>
-            </div>
-             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
-                    <img src="oeuvre7.jpg" alt="Œuvre 7">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 7, 30x42cm, Acrylique sur papier
-                </div>
-            </div>
-             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
-                    <img src="oeuvre8.jpg" alt="Œuvre 8">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 8, 30x42cm, Acrylique sur papier
-                </div>
-            </div>
-             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
-                    <img src="oeuvre9.jpg" alt="Œuvre 9">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 9, 21x30cm, Acrylique sur papier
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio/peinture (anciennement Galerie) -->
-    <section id="peinture" class="gallery-container hidden">
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
-                <img src="oeuvre1.jpg" alt="Œuvre 1">
-            </div>
-            <div class="gallery-description">
-                Sans titre 1, 60x80cm, Acrylique sur toile
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
-                <img src="oeuvre2.jpg" alt="Œuvre 2">
-            </div>
-            <div class="gallery-description">
-                Sans titre 2, 60x80cm, Acrylique sur toile
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
-                <img src="oeuvre3.jpg" alt="Œuvre 3">
-            </div>
-            <div class="gallery-description">
-                Sans titre 3, 21x30cm, Acrylique sur papier
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
-                <img src="oeuvre4.jpg" alt="Œuvre 4">
-            </div>
-            <div class="gallery-description">
-                Sans titre 4, 30x21cm, Acrylique sur papier
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 80x100cm, Acrylique sur toile')">
-                <img src="oeuvre5.jpg" alt="Œuvre 5">
-            </div>
-            <div class="gallery-description">
-                Sans titre 5, 80x100cm, Acrylique sur toile
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
-                <img src="oeuvre6.jpg" alt="Œuvre 6">
-            </div>
-            <div class="gallery-description">
-                Sans titre 6, 30x21cm, Acrylique sur papier
-            </div>
-        </div>
-        <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
-                    <img src="oeuvre7.jpg" alt="Œuvre 7">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 7, 30x42cm, Acrylique sur papier
-                </div>
-            </div>
-             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
-                    <img src="oeuvre8.jpg" alt="Œuvre 8">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 8, 30x42cm, Acrylique sur papier
-                </div>
-            </div>
-             <div class="gallery-item">
-                <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
-                    <img src="oeuvre9.jpg" alt="Œuvre 9">
-                </div>
-                <div class="gallery-description">
-                    Sans titre 9, 21x30cm, Acrylique sur papier
-                </div>
-            </div>
-    </section>
-
-    <section id="photographie" class="gallery-container hidden">
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo5.jpg', 'PATH1, 2018')">
-                <img src="Photo5.jpg" alt="PATH1">
-            </div>
-            <div class="gallery-description">
-                PATH1, 2018
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo7.jpg', 'PATH2, 2018')">
-                <img src="Photo7.jpg" alt="PATH2">
-            </div>
-            <div class="gallery-description">
-                PATH2, 2018
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo8.jpg', 'PATH3, 2018')">
-                <img src="Photo8.jpg" alt="PATH3">
-            </div>
-            <div class="gallery-description">
-                PATH3, 2018
-            </div>
-        </div>  
+    <main>
+        <!-- Page d'accueil -->
+        <section id="home">
+            <div class="landing-gallery">
                 <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo1.jpg', 'C1, 2025')">
-                <img src="Photo1.jpg" alt="Photo 1">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
+                        <img src="oeuvre1.jpg" alt="Œuvre 1">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 1, 60x80cm, Acrylique sur toile
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
+                        <img src="oeuvre2.jpg" alt="Œuvre 2">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 2, 60x80cm, Acrylique sur toile
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre3.jpg" alt="Œuvre 3">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 3, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
+                        <img src="oeuvre4.jpg" alt="Œuvre 4">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 4, 30x21cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre5.jpg" alt="Œuvre 5">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 5, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
+                        <img src="oeuvre6.jpg" alt="Œuvre 6">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 6, 30x21cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
+                        <img src="oeuvre7.jpg" alt="Œuvre 7">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 7, 30x42cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
+                        <img src="oeuvre8.jpg" alt="Œuvre 8">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 8, 30x42cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre9.jpg" alt="Œuvre 9">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 9, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
             </div>
-            <div class="gallery-description">
-                C1, 2025
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo2.jpg', 'C2, 2025')">
-                <img src="Photo2.jpg" alt="Photo 2">
-            </div>
-            <div class="gallery-description">
-                C2, 2025
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo3.jpg', 'C3, 2025')">
-                <img src="Photo3.jpg" alt="Photo 3">
-            </div>
-            <div class="gallery-description">
-                C3, 2025
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('photo4.jpg', 'N.F., 2024')">
-                <img src="photo4.jpg" alt="Photo 4">
-            </div>
-            <div class="gallery-description">
-                N.F., 2024
-            </div>
-        </div>
-        <div class="gallery-item">
-            <div class="gallery-image" onclick="openLightbox('Photo6.jpg', 'SB1, 2018')">
-                <img src="Photo6.jpg" alt="SB1">
-            </div>
-            <div class="gallery-description">
-                SB1, 2018
-            </div>
-        </div>
-        <!-- Répéter le même modèle pour chaque photo -->
-    </section>
+        </section>
 
-    <!-- Contact et Bio -->
-    <section id="contact" class="bio-container hidden">
-        <div class="bio-text">
-            <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Yves Klein, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Hans Hartung, Pierre Soulages, sont autant d'artistes dont les œuvres ont profondément nourri mon sens de l'esthétique et influencé mon approche de la peinture.</p>
-            <br>
-            <p>Mon travail se caractérise par des compositions abstraites colorées, évoquant parfois des silhouettes animales ou végétales. Oscillant entre rigueur gestuelle et expression instinctive, je cherche à explorer les émotions, les perceptions et les concepts au-delà de la représentation figurative.</p>
-            <br>
-            <p>Arthur Evrard</p>
-        </div>
-        <div class="contact-info">
-            <p>Contact : evrard.arthur@gmail.com</p>
-        </div>
-    </section>
+        <!-- Portfolio/peinture (anciennement Galerie) -->
+        <section id="peinture" class="hidden">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre1.jpg', 'Sans titre 1, 60x80cm, Acrylique sur toile')">
+                        <img src="oeuvre1.jpg" alt="Œuvre 1">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 1, 60x80cm, Acrylique sur toile
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre2.jpg', 'Sans titre 2, 60x80cm, Acrylique sur toile')">
+                        <img src="oeuvre2.jpg" alt="Œuvre 2">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 2, 60x80cm, Acrylique sur toile
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre3.jpg', 'Sans titre 3, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre3.jpg" alt="Œuvre 3">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 3, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre4.jpg', 'Sans titre 4, 30x21cm, Acrylique sur papier')">
+                        <img src="oeuvre4.jpg" alt="Œuvre 4">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 4, 30x21cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre5.jpg', 'Sans titre 5, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre5.jpg" alt="Œuvre 5">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 5, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre6.jpg', 'Sans titre 6, 30x21cm, Acrylique sur papier')">
+                        <img src="oeuvre6.jpg" alt="Œuvre 6">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 6, 30x21cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre7.jpg', 'Sans titre 7, 30x42cm, Acrylique sur papier')">
+                        <img src="oeuvre7.jpg" alt="Œuvre 7">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 7, 30x42cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre8.jpg', 'Sans titre 8, 30x42cm, Acrylique sur papier')">
+                        <img src="oeuvre8.jpg" alt="Œuvre 8">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 8, 30x42cm, Acrylique sur papier
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('oeuvre9.jpg', 'Sans titre 9, 21x30cm, Acrylique sur papier')">
+                        <img src="oeuvre9.jpg" alt="Œuvre 9">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 9, 21x30cm, Acrylique sur papier
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="photographie" class="hidden">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Photo5.jpg', 'PATH1, 2018')">
+                        <img src="Photo5.jpg" alt="PATH1">
+                    </div>
+                    <div class="gallery-description">
+                        PATH1, 2018
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Photo7.jpg', 'PATH2, 2018')">
+                        <img src="Photo7.jpg" alt="PATH2">
+                    </div>
+                    <div class="gallery-description">
+                        PATH2, 2018
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Photo8.jpg', 'PATH3, 2018')">
+                        <img src="Photo8.jpg" alt="PATH3">
+                    </div>
+                    <div class="gallery-description">
+                        PATH3, 2018
+                    </div>
+                </div>  
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('photo1.jpg', 'C1, 2025')">
+                        <img src="photo1.jpg" alt="Photo 1">
+                    </div>
+                    <div class="gallery-description">
+                        C1, 2025
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('photo2.jpg', 'C2, 2025')">
+                        <img src="photo2.jpg" alt="Photo 2">
+                    </div>
+                    <div class="gallery-description">
+                        C2, 2025
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('photo3.jpg', 'C3, 2025')">
+                        <img src="photo3.jpg" alt="Photo 3">
+                    </div>
+                    <div class="gallery-description">
+                        C3, 2025
+                    </div>
+                </div>    
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('photo4.jpg', 'N.F., 2024')">
+                        <img src="photo4.jpg" alt="Photo 4">
+                    </div>
+                    <div class="gallery-description">
+                        N.F., 2024
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Photo6.jpg', 'SB1, 2018')">
+                        <img src="Photo6.jpg" alt="SB1">
+                    </div>
+                    <div class="gallery-description">
+                        SB1, 2018
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact et Bio -->
+        <section id="contact" class="hidden">
+            <div class="bio-container">
+                <div class="bio-text">
+                    <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Yves Klein, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Hans Hartung, Pierre Soulages, sont autant d'artistes dont les œuvres ont profondément nourri mon sens de l'esthétique et influencé mon approche de la peinture.</p>
+                    <br>
+                    <p>Mon travail se caractérise par des compositions abstraites colorées, évoquant parfois des silhouettes animales ou végétales. Oscillant entre rigueur gestuelle et expression instinctive, je cherche à explorer les émotions, les perceptions et les concepts au-delà de la représentation figurative.</p>
+                    <br>
+                    <p>Arthur Evrard</p>
+                </div>
+                <div class="contact-info">
+                    <p>Contact : evrard.arthur@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
@@ -541,6 +560,9 @@
             
             // Afficher la section demandée
             document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Faire défiler vers le haut pour voir le début de la section
+            window.scrollTo(0, 0);
         }
         
         // Fonction pour ouvrir la lightbox
