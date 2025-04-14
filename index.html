@@ -80,15 +80,15 @@
         .gallery-item {
             width: 66%; /* 2/3 de l'écran maximum */
             margin-bottom: 100px; /* Espace entre les œuvres pour le défilement */
-            height: 100%; /* Presque toute la hauteur de l'écran */
+            height: 90vh; /* Presque toute la hauteur de l'écran */
             display: flex;
             flex-direction: column;
         }
         
         .gallery-image {
-            width: 59%; /* largeur des images régler en px ou en % */
-            height: auto;
-            margin: 0 auto;
+            width: 100%;
+            height: calc(90vh - 30px); /* Hauteur moins l'espace pour la description */
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -98,9 +98,9 @@
         }
         
         .gallery-image img {
-            width: 100%;
-            height: auto;
-            object-fit: contain; /* facultatif ici mais bon pour la clarté */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             transition: transform 0.3s ease-in-out;
         }
         
