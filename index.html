@@ -66,29 +66,28 @@
             width: calc(100% - 150px);
         }
         
-        /* Structure verticale pour les galeries */
+        /* Structure unifiée pour toutes les galeries */
         .gallery-container, .landing-gallery {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: center;
             padding-top: 30px;
-            padding-bottom: 50px;
-            padding-right: 5px;
+            padding-bottom: 30px;
             max-width: 100%;
         }
         
         .gallery-item {
-            width: 66%; /* 2/3 de l'écran maximum */
-            margin-bottom: 100px; /* Espace entre les œuvres pour le défilement */
-            height: 100%; /* Presque toute la hauteur de l'écran */
+            width: 75%; /* Largeur fixe pour toutes les galeries */
+            margin-bottom: 150px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row-reverse; /* Items en ligne pour desktop */
+            align-items: flex-start;
+            justify-content: flex-end;
         }
         
         .gallery-image {
-            width: 59%; /* largeur des images régler en px ou en % */
-            height: auto;
-            margin: 0 auto;
+            width: 90%;
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,7 +99,7 @@
         .gallery-image img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* facultatif ici mais bon pour la clarté */
+            object-fit: contain;
             transition: transform 0.3s ease-in-out;
         }
         
@@ -109,10 +108,13 @@
         }
         
         .gallery-description {
+            width: 50%;
             font-size: 14px;
             color: #333;
-            margin-top: 10px;
-            text-align: center;
+            padding-right: 100px;
+            text-align: left;
+            position: relative;
+            right: auto;
         }
         
         /* Ajustements pour les sections */
@@ -181,71 +183,47 @@
             cursor: pointer;
         }
         
-        /* Styles pour la section contact/bio */
+        /* Styles pour la section contact/bio - alignée avec les galeries */
         .bio-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: 50px;
+            align-items: center; /* Centré comme les galeries */
             padding-top: 30px;
             padding-bottom: 50px;
+            max-width: 100%;
+        }
+        
+        .bio-content {
+            width: 75%; /* Même largeur que gallery-item */
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: flex-start;
+            justify-content: flex-end;
         }
         
         .bio-text {
-            width: 66%; /* Maintenir la cohérence avec les images */
+            width: 90%; /* Même largeur que gallery-image */
             margin-bottom: 30px;
             text-align: justify;
         }
         
         .contact-info {
-            width: 66%; /* Maintenir la cohérence avec les images */
+            width: 90%; /* Même largeur que gallery-image */
             margin-top: 20px;
         }
         
         /* Media queries pour la responsivité */
         @media screen and (max-width: 768px) {
-            nav {
-                width: 100px;
-                padding-left: 15px;
-            }
-            
-            main {
-                margin-left: 100px;
-                width: calc(100% - 100px);
-            }
-            
-            .gallery-item, .bio-text, .contact-info {
-                width: 75%;
-            }
-            
-            .gallery-item {
-                margin-bottom: 30px;
-                height: auto;
-            }
-            
-            .gallery-image {
-                height: auto;
-            }
-
-            .gallery-description {
-                margin-top: 5px; /* Ajoutez cette ligne pour réduire l'espace */
-            }
-            
-            .lightbox-image {
-                max-height: 80vh;
-            }
-        }
-        
-        @media screen and (max-width: 480px) {
+            /* Appliquer les mêmes styles que pour le format 480px */
             nav {
                 width: 70px;
                 padding-left: 10px;
             }
             
             main {
-                margin-left: 70px;
+                margin-left: 95px;
+                margin-right: 2px;
                 width: calc(100% - 70px);
             }
             
@@ -256,40 +234,99 @@
             
             .nav-links a {
                 font-size: 14px;
-                margin-bottom: 15px;
+                margin-bottom: 0px;
             }
             
-            .gallery-item, .bio-text, .contact-info {
+            .gallery-item, .bio-content {
                 width: 85%;
-            }
-            
-            .gallery-container, .landing-gallery {
-                padding-right: 5px; /* Réduit le padding sur mobile */
-            }
-            
-            .gallery-item {
                 margin-bottom: 30px;
+            }
+            
+            .gallery-container, .landing-gallery, .bio-container {
+                padding-right: 0;
+            }
+            
+            .gallery-item, .bio-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end; /* Aligne les images à droite */
+                margin-bottom: 30px;
+            }
+            
+            .gallery-image, .bio-text, .contact-info {
+                width: 90%; /* Ajuste la largeur des images */
                 height: auto;
             }
             
-            .gallery-image {
-                height: auto; /* pour ajuster la hauteur des images */
-                width: 90%; /* pour ajuster la largeur des images */
-            }
-            
             .gallery-description {
-                margin-top: 5px; /* Ajoutez cette ligne pour réduire l'espace */
-                font-size: 12px; /* Pour changer la taille de la police de légende sur mobile */
+                width: 90%; /* Même largeur que l'image */
+                padding-right: 0;
+                text-align: center;
+                margin-top: 8px;
+                font-size: 11px;
             }
             
             .bio-text {
                 font-size: 13px;
+                text-align: left;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            /* Garder les mêmes styles que ci-dessus pour la cohérence */
+            nav {
+                width: 70px;
+                padding-left: 10px;
             }
             
-            .lightbox-close {
-                top: -30px;
-                right: 0;
-                font-size: 24px;
+            main {
+                margin-left: 95px;
+                margin-right: 2px;
+                width: calc(100% - 70px);
+            }
+            
+            .logo {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .nav-links a {
+                font-size: 14px;
+                margin-bottom: 0px;
+            }
+            
+            .gallery-item, .bio-content {
+                width: 85%;
+                margin-bottom: 30px;
+            }
+            
+            .gallery-container, .landing-gallery, .bio-container {
+                padding-right: 0;
+            }
+            
+            .gallery-item, .bio-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                margin-bottom: 30px;
+            }
+            
+            .gallery-image, .bio-text, .contact-info {
+                width: 90%;
+                height: auto;
+            }
+            
+            .gallery-description {
+                width: 90%;
+                padding-right: 0;
+                text-align: center;
+                margin-top: 8px;
+                font-size: 11px;
+            }
+            
+            .bio-text {
+                font-size: 13px;
+                text-align: left;
             }
         }
     </style>
@@ -407,7 +444,7 @@
         <!-- Portfolio/peinture (anciennement Galerie) -->
         <section id="peinture" class="hidden">
             <div class="gallery-container">
-              <div class="gallery-item">
+                <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Duo de rouge, 60x80cm, Acrylique sur toile')">
                         <img src="Duo-rouge.jpg" alt="Œuvre 1">
                     </div>
@@ -567,18 +604,28 @@
             </div>
         </section>
 
-        <!-- Contact et Bio -->
+        <!-- Contact et Bio - Structure révisée pour s'aligner avec les galeries -->
         <section id="contact" class="hidden">
             <div class="bio-container">
-                <div class="bio-text">
-                    <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Yves Klein, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Hans Hartung, Pierre Soulages, sont autant d'artistes dont les œuvres ont profondément nourri mon sens de l'esthétique et influencé mon approche de la peinture.</p>
-                    <br>
-                    <p>Mon travail se caractérise par des compositions abstraites colorées, évoquant parfois des silhouettes animales ou végétales. Oscillant entre rigueur gestuelle et expression instinctive, je cherche à explorer les émotions, les perceptions et les concepts au-delà de la représentation figurative.</p>
-                    <br>
-                    <p>Arthur Evrard</p>
+                <div class="bio-content">
+                    <div class="bio-text">
+                        <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Yves Klein, Zao Wou-Ki, Gerhard Richter, Jean-Michel Basquiat, Hans Hartung, Pierre Soulages, sont autant d'artistes dont les œuvres ont profondément nourri mon sens de l'esthétique et influencé mon approche de la peinture.</p>
+                        <br>
+                        <p>Mon travail se caractérise par des compositions abstraites colorées, évoquant parfois des silhouettes animales ou végétales. Oscillant entre rigueur gestuelle et expression instinctive, je cherche à explorer les émotions, les perceptions et les concepts au-delà de la représentation figurative.</p>
+                        <br>
+                        <p>Arthur Evrard</p>
+                    </div>
+                    <div class="gallery-description">
+                          
+                    </div>
                 </div>
-                <div class="contact-info">
-                    <p>Contact : evrard.arthur@gmail.com</p>
+                <div class="bio-content">
+                    <div class="contact-info">
+                        <p>Contact : evrard.arthur@gmail.com</p>
+                    </div>
+                    <div class="gallery-description">
+                          
+                    </div>
                 </div>
             </div>
         </section>
