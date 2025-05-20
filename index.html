@@ -35,6 +35,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            justify-content: space-between; /* Répartit l'espace entre les éléments */
         }
         
         .logo-container {
@@ -53,6 +54,8 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            margin-top: auto; /* Pousse les liens vers le bas */
+            padding-bottom: 10px; /* Même valeur que le padding-top de nav */
         }
         
         .nav-links a {
@@ -62,14 +65,14 @@
             cursor: crosshair;
         }
         
-        /* Structure principale avec décalage pour la navigation */
+        /* Style structure principale avec décalage pour la navigation */
         main {
             flex: 1;
             margin-left: 150px; /* Correspond à la largeur de la navigation */
             width: calc(100% - 150px);
         }
         
-        /* Structure unifiée pour toutes les galeries */
+        /* Style pour toutes les galeries */
         .gallery-container, .landing-gallery {
             display: flex;
             flex-direction: column;
@@ -119,14 +122,37 @@
             position: relative;
             right: auto;
         }
-        
-        /* Ajustements pour les sections */
-        section {
-            min-height: auto;
+
+        .landing-gallery .gallery-description a {
+            font-size: 24px;
+            font-weight: 700;
         }
         
         /* Pour cacher les sections non actives */
         .hidden {
+            display: none;
+        }
+        
+        /* Navigation avec ancres */
+        section:target {
+            display: block;
+        }
+        
+        section:not(:target) {
+            display: none;
+        }
+        
+        /* Par défaut, afficher la section home si aucune cible */
+        section#home {
+            display: block;
+        }
+        
+        body:has(#stripes:target) section#home,
+        body:has(#Color-studies:target) section#home,
+        body:has(#Abstractions:target) section#home,
+        body:has(#projets:target) section#home,
+        body:has(#photographie:target) section#home,
+        body:has(#contact:target) section#home {
             display: none;
         }
         
@@ -186,18 +212,18 @@
             cursor: crosshair;
         }
         
-        /* Styles pour la section contact/bio - alignée avec les galeries */
+        /* Styles pour la section contact/bio */
         .bio-container {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centré comme les galeries */
+            align-items: center;
             padding-top: 30px;
             padding-bottom: 50px;
             max-width: 100%;
         }
         
         .bio-content {
-            width: 75%; /* Même largeur que gallery-item */
+            width: 75%;
             margin-bottom: 30px;
             display: flex;
             flex-direction: row-reverse;
@@ -206,77 +232,63 @@
         }
         
         .bio-text {
-            width: 90%; /* Même largeur que gallery-image */
+            width: 90%;
             margin-bottom: 30px;
             text-align: justify;
         }
         
         .contact-info {
-            width: 90%; /* Même largeur que gallery-image */
+            width: 90%;
             margin-top: 20px;
+        }
+        
+        /* Styles pour les pages de projet */
+        .project-header {
+            width: 75%;
+            margin: 30px auto 50px auto;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: row-reverse; /* Identique à gallery-item */
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+
+        .project-title {
+            width: 50%; /* Même largeur que gallery-description */
+            font-size: 24px;
+            font-weight: 700;
+            text-align: left;
+            padding-right: 100px; /* Même padding que gallery-description */
+            position: relative;
+            right: auto;
+        }
+
+        .project-description {
+            width: 90%; /* Même largeur que gallery-image */
+            line-height: 1.6;
+            text-align: justify;
+            font-size: 14px;
+        }
+        
+        .back-navigation {
+            width: 75%;
+            margin: 20px auto;
+            text-align: left;
+        }
+        
+        .back-navigation a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: crosshair;
+        }
+        
+        .back-navigation a:hover {
+            text-decoration: underline;
         }
         
         /* Media queries pour la responsivité */
         @media screen and (max-width: 768px) {
-            /* Appliquer les mêmes styles que pour le format 480px */
-            nav {
-                width: 70px;
-                padding-left: 10px;
-            }
-            
-            main {
-                margin-left: 95px;
-                margin-right: 2px;
-                width: calc(100% - 70px);
-            }
-            
-            .logo {
-                width: 30px;
-                height: 30px;
-            }
-            
-            .nav-links a {
-                font-size: 14px;
-                margin-bottom: 0px;
-            }
-            
-            .gallery-item, .bio-content {
-                width: 85%;
-                margin-bottom: 30px;
-            }
-            
-            .gallery-container, .landing-gallery, .bio-container {
-                padding-right: 0;
-            }
-            
-            .gallery-item, .bio-content {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end; /* Aligne les images à droite */
-                margin-bottom: 30px;
-            }
-            
-            .gallery-image, .bio-text, .contact-info {
-                width: 90%; /* Ajuste la largeur des images */
-                height: auto;
-            }
-            
-            .gallery-description {
-                width: 90%; /* Même largeur que l'image */
-                padding-right: 0;
-                text-align: center;
-                margin-top: 8px;
-                font-size: 11px;
-            }
-            
-            .bio-text {
-                font-size: 13px;
-                text-align: left;
-            }
-        }
-        
-        @media screen and (max-width: 480px) {
-            /* Garder les mêmes styles que ci-dessus pour la cohérence */
             nav {
                 width: 70px;
                 padding-left: 10px;
@@ -331,6 +343,94 @@
                 font-size: 13px;
                 text-align: left;
             }
+            
+            .project-header, .project-description, .back-navigation {
+                width: 85%;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            nav {
+                width: 70px;
+                padding-left: 10px;
+            }
+            
+            main {
+                margin-left: 95px;
+                margin-right: 2px;
+                width: calc(100% - 70px);
+            }
+            
+            .logo {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .nav-links a {
+                font-size: 14px;
+                margin-bottom: 0px;
+            }
+            
+            .gallery-item, .bio-content {
+                width: 85%;
+                margin-bottom: 30px;
+            }
+            
+            .gallery-container, .landing-gallery, .bio-container {
+                padding-right: 0;
+            }
+            
+            .gallery-item, .bio-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                margin-bottom: 30px;
+            }
+            
+            .gallery-image, .bio-text, .contact-info {
+                width: 90%;
+                height: auto;
+            }
+            
+            .gallery-description {
+                width: 90%;
+                padding-right: 0;
+                text-align: center;
+                margin-top: 8px;
+                font-size: 11px;
+            }
+            
+            .bio-text {
+                font-size: 13px;
+                text-align: left;
+            }
+            
+            .project-header, .project-description, .back-navigation {
+                width: 85%;
+            }
+
+                /* Modification de la structure du project-header sur mobile */
+            .project-header {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            .project-title {
+                order: -1; /* Cette propriété place l'élément avant les autres */
+                width: 90%;
+                padding-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .project-description {
+                width: 90%;
+                /* La largeur est déjà adaptée dans vos règles existantes */
+            }
+
+                 /* Modification de la taille des titres de projet sur mobile */
+                .landing-gallery .gallery-description a {
+                font-size: 18px; /* Ajustez selon vos préférences pour mobile */
+            }
         }
     </style>
 </head>
@@ -338,14 +438,13 @@
     <!-- Navigation verticale -->
     <nav>
         <div class="logo-container">
-            <a href="#" onclick="showSection('home')">
+            <a href="#home">
                 <img src="logo.png" alt="Logo" class="logo">
             </a>
         </div>
         <div class="nav-links">
-            <a href="#" onclick="showSection('peinture')">Peinture</a>
-            <a href="#" onclick="showSection('photographie')">Photographie</a>
-            <a href="#" onclick="showSection('contact')">Contact</a>
+            <a href="#projets">Projets</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
@@ -353,116 +452,144 @@
         <!-- Page d'accueil -->
         <section id="home">
             <div class="landing-gallery">
+                <!-- Projet Stripes -->
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Ocean acidification.jpg', 'Ocean acidification 1985-2022, 100x120cm, Acrylic on canvas')">   
-                        <img src="Ocean acidification.jpg" alt="Ocean acidification">
+                    <div class="gallery-image">   
+                        <a href="#stripes">
+                            <img src="Ocean acidification.jpg" alt="Ocean acidification">
+                        </a>
                     </div>
                     <div class="gallery-description">
-                        Ocean acidification 1985-2022, 100x120cm, Acrylic on canvas
+                        <a href="#stripes" style="text-decoration: none; color: inherit;">
+                            Stripes
+                        </a>
                     </div>
                 </div>
+                
+                <!-- Projet Color Studies -->
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Stripes - Coral Bleaching Study-min.jpg', 'Coral Bleaching 1980-2020 Study, 30x42cm, Acrylic on paper')">
-                        <img src="Stripes - Coral Bleaching Study-min.jpg" alt="Stripes - Coral Bleaching Study-min">
+                    <div class="gallery-image">
+                        <a href="#Color-studies">
+                            <img src="Jaune-et-noir-sur-bleu.jpg" alt="Coral Bleaching Study">
+                        </a>
                     </div>
                     <div class="gallery-description">
-                        Coral Bleaching 1980-2020 Study, 30x42cm, Acrylic on paper
+                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
+                            Color studies
+                        </a>
                     </div>
                 </div>
+                
+                <!-- Projet Abstractions -->
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('BandesBleues.jpg', 'White and blue stripes, 100x120cm, Acrylic on canvas')">   
-                        <img src="BandesBleues.jpg" alt="White and blue stripes">
+                    <div class="gallery-image">   
+                        <a href="#Abstractions">
+                            <img src="Duo-rouge.jpg" alt="Blue Studies">
+                        </a>
                     </div>
                     <div class="gallery-description">
-                        White and blue stripes, 100x120cm, Acrylic on canvas
+                        <a href="#Abstractions" style="text-decoration: none; color: inherit;">
+                            Abstractions
+                        </a>
                     </div>
                 </div>
+
+                <!-- Projet Photos -->
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('EtudeBandesBleues.jpg', 'Blue stripes study, 30x42cm, Acrylic on paper')">
-                        <img src="EtudeBandesBleues.jpg" alt="Blue stripes study">
+                    <div class="gallery-image">   
+                        <a href="#photographie">
+                            <img src="Photo1.jpg" alt="Photo1">
+                        </a>
                     </div>
                     <div class="gallery-description">
-                        Blue stripes study, 30x42cm, Acrylic on paper
+                        <a href="#photographie" style="text-decoration: none; color: inherit;">
+                            Photography
+                        </a>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu2.jpg', 'Blue study 2, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-bleu2.jpg" alt="Blue Study 2">
-                    </div>
-                    <div class="gallery-description">
-                        Blue Study 2, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-orange-rouge.JPEG', 'Orange and red study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-orange-rouge.JPEG" alt="Orange and red study">
-                    </div>
-                    <div class="gallery-description">
-                        Orange and red study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-rouge.jpg" alt="Red duo">
-                    </div>
-                    <div class="gallery-description">
-                        Red duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-bleu.jpg', 'Blue duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-bleu.jpg" alt="Blue duo">
-                    </div>
-                    <div class="gallery-description">
-                        Blue duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
-                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
-                    </div>
-                    <div class="gallery-description">
-                        Blue study, 21x30cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Agathe.jpg', 'Agathe, 30x21cm, Acrylic on paper')">
-                        <img src="Agathe.jpg" alt="Agathe">
-                    </div>
-                    <div class="gallery-description">
-                        Agathe, 30x21cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir.jpg', 'Black study, 42x30cm, Acrylic on paper')">
-                        <img src="Etude-noir.jpg" alt="Black study">
-                    </div>
-                    <div class="gallery-description">
-                        Black study, 42x30cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir-et-vert.jpg', 'Black and green study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-noir-et-vert.jpg" alt="Black and green study">
-                    </div>
-                    <div class="gallery-description">
-                        Black and green study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Jaune-et-noir-sur-bleu.jpg', 'Yellow and black on blue, 80x100cm, Acrylic on canvas')">
-                        <img src="Jaune-et-noir-sur-bleu.jpg" alt="Œuvre 8">
-                    </div>
-                    <div class="gallery-description">
-                       Yellow and black on blue, 80x100cm, Acrylic on canvas
-                    </div>
-                </div>
+                
+                <!-- Ajouter d'autres blocs -->
             </div>
         </section>
 
-        <!-- Portfolio/peinture (anciennement Galerie) -->
-        <section id="peinture" class="hidden">
+        <!-- Section Projets -->
+        <section id="projets">
             <div class="landing-gallery">
+                <!-- Même contenu que la page d'accueil ou une sélection différente -->
+                <!-- Projet Stripes -->
+                <div class="gallery-item">
+                    <div class="gallery-image">   
+                        <a href="#stripes">
+                            <img src="Ocean acidification.jpg" alt="Ocean acidification">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#stripes" style="text-decoration: none; color: inherit;">
+                            Stripes
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet Color Studies -->
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <a href="#Color-studies">
+                            <img src="Jaune-et-noir-sur-bleu.jpg" alt="Coral Bleaching Study">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
+                            Color studies
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet Abstractions -->
+                <div class="gallery-item">
+                    <div class="gallery-image">   
+                        <a href="#Abstractions">
+                            <img src="Duo-rouge.jpg" alt="Blue Studies">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#Abstractions" style="text-decoration: none; color: inherit;">
+                            Abstractions
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Projet Photos -->
+                <div class="gallery-item">
+                    <div class="gallery-image">   
+                        <a href="#photographie">
+                            <img src="Photo1.jpg" alt="Photo1">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#photographie" style="text-decoration: none; color: inherit;">
+                            Photography
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Page projet Stripes -->
+        <section id="stripes">
+            
+            <div class="project-header">
+                <div class="project-description">
+                    <p>Le projet Stripes explore l’impact des activités humaines sur les écosystèmes terrestres et marins à travers une transcription visuelle de données issues de recherches scientifiques à la manière de la data visualisation. Inspiré notamment par les warming stripes du climatologue britannique Ed Hawkins, j’explore à travers ce projet des problématiques environnementales qui me tiennent à coeur comme l’augmentation de la pollution plastique, le blanchissement des coraux, l’acidification des océans ou encore divers phénomènes de pollution chimique.</p>
+                    <br>
+                    <p>L’objectif est de créer une passerelle entre l’information brute et l’émotion, entre la science et la sensibilité. Ces tableaux deviennent alors des récits de la crise écologique, une manière de rendre visible l’invisible, et de susciter chez le spectateur des interrogations que les chiffres seuls peinent à faire ressentir.</p>
+                </div>
+                <div class="project-title">
+                    Stripes
+                </div>
+            </div>
+            
+            <div class="gallery-container">
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Ocean acidification.jpg', 'Ocean acidification 1985-2022, 100x120cm, Acrylic on canvas')">   
                         <img src="Ocean acidification.jpg" alt="Ocean acidification">
@@ -495,70 +622,24 @@
                         Blue stripes study, 30x42cm, Acrylic on paper
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu2.jpg', 'Blue study 2, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-bleu2.jpg" alt="Blue Study 2">
-                    </div>
-                    <div class="gallery-description">
-                        Blue Study 2, 30x42cm, Acrylic on paper
-                    </div>
+            </div>
+            
+        </section>
+
+        <!-- Page projet Color studies -->
+        <section id="Color-studies">
+
+            <div class="project-header">
+                <div class="project-description">
+                    <p>La série Color studies regroupe des études à l’acrylique centrées sur la couleur, la transparence, la superposition des couches et les variations tonales. Il s'agit d'un travail expérimental ayant pour objectif d'explorer les interactions chromatiques, les effets de lumière ou encore certaines textures.</p>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-orange-rouge.JPEG', 'Orange and red study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-orange-rouge.JPEG" alt="Orange and red study">
-                    </div>
-                    <div class="gallery-description">
-                        Orange and red study, 30x42cm, Acrylic on paper
-                    </div>
+                <div class="project-title">
+                    Color studies
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-rouge.jpg" alt="Red duo">
-                    </div>
-                    <div class="gallery-description">
-                        Red duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-bleu.jpg', 'Blue duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-bleu.jpg" alt="Blue duo">
-                    </div>
-                    <div class="gallery-description">
-                        Blue duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
-                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
-                    </div>
-                    <div class="gallery-description">
-                        Blue study, 21x30cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Agathe.jpg', 'Agathe, 30x21cm, Acrylic on paper')">
-                        <img src="Agathe.jpg" alt="Agathe">
-                    </div>
-                    <div class="gallery-description">
-                        Agathe, 30x21cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir.jpg', 'Black study, 42x30cm, Acrylic on paper')">
-                        <img src="Etude-noir.jpg" alt="Black study">
-                    </div>
-                    <div class="gallery-description">
-                        Black study, 42x30cm, Acrylic on paper
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir-et-vert.jpg', 'Black and green study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-noir-et-vert.jpg" alt="Black and green study">
-                    </div>
-                    <div class="gallery-description">
-                        Black and green study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
+            </div>
+            
+            <div class="gallery-container">
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Jaune-et-noir-sur-bleu.jpg', 'Yellow and black on blue, 80x100cm, Acrylic on canvas')">
                         <img src="Jaune-et-noir-sur-bleu.jpg" alt="Œuvre 8">
@@ -567,17 +648,121 @@
                        Yellow and black on blue, 80x100cm, Acrylic on canvas
                     </div>
                 </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-bleu2.jpg', 'Blue study 2, 30x42cm, Acrylic on paper')">
+                        <img src="Etude-bleu2.jpg" alt="Blue Study 2">
+                    </div>
+                    <div class="gallery-description">
+                        Blue Study 2, 30x42cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-orange-rouge.JPEG', 'Orange and red study, 30x42cm, Acrylic on paper')">
+                        <img src="Etude-orange-rouge.JPEG" alt="Orange and red study">
+                    </div>
+                    <div class="gallery-description">
+                        Orange and red study, 30x42cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-noir.jpg', 'Black study, 42x30cm, Acrylic on paper')">
+                        <img src="Etude-noir.jpg" alt="Black study">
+                    </div>
+                    <div class="gallery-description">
+                        Black study, 42x30cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-noir-et-vert.jpg', 'Black and green study, 30x42cm, Acrylic on paper')">
+                        <img src="Etude-noir-et-vert.jpg" alt="Black and green study">
+                    </div>
+                    <div class="gallery-description">
+                        Black and green study, 30x42cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <!-- Ajouter d'autres blocs -->
             </div>
+            
         </section>
 
-        <section id="photographie" class="hidden">
+        <!-- Page projet Abstractions -->
+        <section id="Abstractions">
+            
+            <div class="project-header">
+                <div class="project-description">
+                    <p>Les oeuvres de la série Abstractions sont nées de gestes libres, intuitifs, presque automatiques, où les formes surgissent sans plan préétabli. Elles s'assimilent à la pratique du Doddle Art enrichies par un travail sur la matière et les textures obtenu via des gestes minutieusement répétés dans une forme de "hasard maîtrisé". On pourrait qualifier ces motifs abstraits de "réminiscences intuitives" : ils ne racontent rien de précis et laissent libre cours à l'imagination et à l'interprétation chez le spectateur.</p>
+                </div>
+                <div class="project-title">
+                    Abstractions
+                </div>
+            </div>
+            
+            <div class="gallery-container">
+        
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas')">
+                        <img src="Duo-rouge.jpg" alt="Red duo">
+                    </div>
+                    <div class="gallery-description">
+                        Red duo, 60x80cm, Acrylic on canvas
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Duo-bleu.jpg', 'Blue duo, 60x80cm, Acrylic on canvas')">
+                        <img src="Duo-bleu.jpg" alt="Blue duo">
+                    </div>
+                    <div class="gallery-description">
+                        Blue duo, 60x80cm, Acrylic on canvas
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Agathe.jpg', 'Agathe, 30x21cm, Acrylic on paper')">
+                        <img src="Agathe.jpg" alt="Agathe">
+                    </div>
+                    <div class="gallery-description">
+                        Agathe, 30x21cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
+                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
+                    </div>
+                    <div class="gallery-description">
+                        Blue study, 21x30cm, Acrylic on paper
+                    </div>
+                </div>
+
+            </div>
+            
+        </section>
+
+        <!-- Page projet Photographie -->
+        <section id="photographie">
+
+            <div class="project-header">
+                <div class="project-description">
+                    <p>Ce projet rassemble des photographies réalisées entre 2018 et aujourd'hui. À l’image de Hans Hartung, qui évoquait les liens « plus ou moins proches » entre sa pratique picturale et ses photographies, j’explore dans cette série le lien entre deux médiums qui m’ont toujours passionnés, en capturant des fragments d’architecture ou des morceaux de ciel. L’un des objectifs est d’amener le spectateur à s’interroger, à travers ces images ambigües où le regard hésite et cherche ses repères, sur la frontière entre abstraction et figuration.</p>
+                </div>
+                <div class="project-title">
+                    Photography
+                </div>
+            </div>
+
             <div class="gallery-container">
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Photo5.jpg', 'PATH1, 2018')">
                         <img src="Photo5.jpg" alt="PATH1">
                     </div>
                     <div class="gallery-description">
-                        PATH1, 2018
+                        Ribs, 2018
                     </div>
                 </div>
                 <div class="gallery-item">
@@ -585,7 +770,7 @@
                         <img src="Photo7.jpg" alt="PATH2">
                     </div>
                     <div class="gallery-description">
-                        PATH2, 2018
+                        Ribs 2, 2018
                     </div>
                 </div>
                 <div class="gallery-item">
@@ -593,7 +778,7 @@
                         <img src="Photo8.jpg" alt="PATH3">
                     </div>
                     <div class="gallery-description">
-                        PATH3, 2018
+                        Backbone, 2018
                     </div>
                 </div>  
                 <div class="gallery-item">
@@ -639,14 +824,14 @@
             </div>
         </section>
 
-        <!-- Contact et Bio - Structure révisée pour s'aligner avec les galeries -->
-        <section id="contact" class="hidden">
+        <!-- Section Contact -->
+        <section id="contact">
             <div class="bio-container">
                 <div class="bio-content">
                     <div class="bio-text">
                         <p>Passionné par la peinture depuis toujours, j'ai débuté mon parcours par une formation en histoire des arts. Après avoir exploré différentes voies, jusque dans le secteur de la Tech, j'ai finalement choisi de revenir à ce qui m'animait le plus : la création artistique. Mark Rothko, Lucas Arruda, Claire Chesnier ou encore Thomas Devaux comptent parmis les artistes qui nourrissent mon inspiration et ont contribué à orienter mes recherches picturales.</p>
                         <br>
-                        <p>Mon travail s’articule autour de compositions abstraites et colorées à travers lesquelles j’explore des thématiques liées à l’écologie. Entre expression instinctive et démarche de recherche rigoureuse, mon projet Stripes (inspiré notamment des “warming stripes” du climatologue Ed Hawkins) matérialise mes inquiétudes face aux bouleversements environnementaux tels que la pollution, l’érosion de la biodiversité et la dégradation des écosystèmes terrestres et marins.</p>
+                        <p>Mon travail s'articule autour de compositions abstraites et colorées à travers lesquelles j'explore des thématiques liées à l'écologie. Entre expression instinctive et démarche de recherche rigoureuse, mon projet Stripes (inspiré notamment des "warming stripes" du climatologue Ed Hawkins) matérialise mes inquiétudes face aux bouleversements environnementaux tels que la pollution, l'érosion de la biodiversité et la dégradation des écosystèmes terrestres et marins.</p>
                         <br>
                         <p>Arthur Evrard</p>
                     </div>
@@ -676,21 +861,6 @@
     </div>
 
     <script>
-        // Fonction pour afficher la section désirée
-        function showSection(sectionId) {
-            // Cacher toutes les sections
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('peinture').classList.add('hidden');
-            document.getElementById('photographie').classList.add('hidden');
-            document.getElementById('contact').classList.add('hidden');
-            
-            // Afficher la section demandée
-            document.getElementById(sectionId).classList.remove('hidden');
-            
-            // Faire défiler vers le haut pour voir le début de la section
-            window.scrollTo(0, 0);
-        }
-        
         // Fonction pour ouvrir la lightbox
         function openLightbox(imageSrc, caption) {
             const lightbox = document.getElementById('lightbox');
@@ -727,11 +897,6 @@
                 closeLightbox();
             }
         });
-        
-        // Afficher la section d'accueil par défaut
-        window.onload = function() {
-            showSection('home');
-        };
     </script>
 </body>
 </html>
