@@ -431,6 +431,12 @@
                 .landing-gallery .gallery-description a {
                 font-size: 18px; /* Ajustez selon vos préférences pour mobile */
             }
+
+                /* Détection des appareils iOS */
+            @supports (-webkit-touch-callout: none) {
+            nav {
+                height: -webkit-fill-available;
+            }
         }
     </style>
 </head>
