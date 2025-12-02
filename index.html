@@ -150,7 +150,6 @@
         body:has(#stripes:target) section#home,
         body:has(#Color-studies:target) section#home,
         body:has(#Abstractions:target) section#home,
-        body:has(#projets:target) section#home,
         body:has(#photographie:target) section#home,
         body:has(#contact:target) section#home {
             display: none;
@@ -182,6 +181,8 @@
             max-width: 90%;
             max-height: 90%;
             position: relative;
+            display: flex; 
+            align-items: center;
         }
         
         .lightbox-image {
@@ -199,20 +200,76 @@
             background-color: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border-radius: 5px;
+            position: absolute; 
+            bottom: -50px; 
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap; 
         }
-        
+
+        /* NOUVEAU STYLE : Position fixe de la croix */
         .lightbox-close {
             position: absolute;
-            top: -40px;
-            right: 0;
+            top: 40px; /* Position fixe par rapport au haut de l'écran */
+            right: 40px; /* Position fixe par rapport à la droite de l'écran */
             font-size: 28px;
             color: #333;
             background: none;
             border: none;
             cursor: pointer;
+            z-index: 1011; /* Au-dessus de tout */
+        }
+
+        /* Styles spécifiques pour le carrousel */
+        .lightbox-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.5); 
+            border: none;
+            color: black; 
+            font-size: 30px;
+            font-weight: bold;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1010; 
+            transition: background-color 0.2s;
+            line-height: 1; 
+        }
+
+        .lightbox-nav-button:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* NOUVEAU STYLE : Position fixe des flèches */
+        #prevButton {
+            left: 40px; 
+        }
+
+        #nextButton {
+            right: 40px; 
         }
         
         /* Styles pour la section contact/bio */
+
+        .bio-image-block {
+            width: 75%; /* Alignement avec le conteneur .bio-content (contenant le texte) */
+            margin-bottom: 30px; 
+            display: flex;
+            /* Le bio-content utilise flex-direction: row-reverse; ce qui fait que le contenu est poussé à droite, 
+               mais ici nous devons le gérer manuellement car il est au-dessus. */
+            justify-content: flex-end; 
+        }
+
+        .bio-image-block img {
+            /* NOUVELLE RÈGLE CLÉ : L'image prend exactement 90% de son parent .bio-image-block (qui est 75% de la page). 
+               Ceci reproduit la largeur de .bio-text (qui est 90% de .bio-content). */
+            width: 90%; 
+            max-width: none; /* Supprimer la limite maximale pour laisser le 90% fonctionner */
+            height: auto;
+            object-fit: cover;
+        }
+
         .bio-container {
             display: flex;
             flex-direction: column;
@@ -248,23 +305,23 @@
             margin: 30px auto 50px auto;
             padding-top: 30px;
             display: flex;
-            flex-direction: row-reverse; /* Identique à gallery-item */
+            flex-direction: row-reverse; 
             align-items: flex-start;
             justify-content: flex-end;
         }
 
         .project-title {
-            width: 50%; /* Même largeur que gallery-description */
+            width: 50%; 
             font-size: 20px;
             font-weight: 200;
             text-align: left;
-            padding-right: 100px; /* Même padding que gallery-description */
+            padding-right: 100px; 
             position: relative;
             right: auto;
         }
 
         .project-description {
-            width: 90%; /* Même largeur que gallery-image */
+            width: 90%; 
             line-height: 1.6;
             text-align: justify;
             font-size: 14px;
@@ -343,9 +400,28 @@
                 font-size: 13px;
                 text-align: left;
             }
+
+             .bio-image-block {
+                width: 85%; /* S'aligner avec le .bio-content sur mobile */
+                /* L'image à 90% à l'intérieur de ce 85% devrait toujours être alignée avec le texte. */
+            }
             
             .project-header, .project-description, .back-navigation {
                 width: 85%;
+            }
+
+            /* Réajustement des flèches et de la croix sur mobile */
+            #prevButton {
+                left: 10px; 
+            }
+
+            #nextButton {
+                right: 10px; 
+            }
+
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
             }
         }
         
@@ -409,14 +485,14 @@
                 width: 85%;
             }
 
-                /* Modification de la structure du project-header sur mobile */
+            /* Modification de la structure du project-header sur mobile */
             .project-header {
                 flex-direction: column;
                 align-items: flex-end;
             }
 
             .project-title {
-                order: -1; /* Cette propriété place l'élément avant les autres */
+                order: -1; 
                 width: 90%;
                 padding-right: 0;
                 margin-bottom: 11px;
@@ -425,19 +501,30 @@
             .project-description {
                 width: 90%;
                 text-align: left;
-                /* La largeur est déjà adaptée dans vos règles existantes */
             }
 
-                 /* Modification de la taille des titres de projet sur mobile */
-                .landing-gallery .gallery-description a {
-                font-size: 18px; /* Ajustez selon vos préférences pour mobile */
+            /* Modification de la taille des titres de projet sur mobile */
+            .landing-gallery .gallery-description a {
+                font-size: 18px; 
             }
 
+            /* Réajustement des flèches et de la croix sur mobile */
+            #prevButton {
+                left: 10px; 
+            }
+
+            #nextButton {
+                right: 10px; 
+            }
+
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation verticale -->
     <nav>
         <div class="logo-container">
             <a href="#home">
@@ -445,16 +532,13 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="#projets">Projets</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <main>
-        <!-- Page d'accueil -->
         <section id="home">
             <div class="landing-gallery">
-                <!-- Projet upheaval (anciennement Stripes) -->
                 <div class="gallery-item">
                     <div class="gallery-image">   
                         <a href="#stripes">
@@ -468,21 +552,6 @@
                     </div>
                 </div>
                 
-                <!-- Projet Color Studies -->
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <a href="#Color-studies">
-                            <img src="Etude-bleu2.jpg" alt="Etude-bleu2">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
-                            Color studies
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Projet Abstractions -->
                 <div class="gallery-item">
                     <div class="gallery-image">   
                         <a href="#Abstractions">
@@ -495,8 +564,20 @@
                         </a>
                     </div>
                 </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <a href="#Color-studies">
+                            <img src="Etude-bleu2.jpg" alt="Etude-bleu2">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
+                            Color studies
+                        </a>
+                    </div>
+                </div>
 
-                <!-- Projet Photos -->
                 <div class="gallery-item">
                     <div class="gallery-image">   
                         <a href="#photographie">
@@ -510,76 +591,9 @@
                     </div>
                 </div>
                 
-                <!-- Ajouter d'autres blocs -->
-            </div>
+                </div>
         </section>
 
-        <!-- Section Projets -->
-        <section id="projets">
-            <div class="landing-gallery">
-                <!-- Même contenu que la page d'accueil ou une sélection différente -->
-                
-                <!-- Projet upheaval (anciennement Stripes) -->
-                <div class="gallery-item">
-                    <div class="gallery-image">   
-                        <a href="#stripes">
-                            <img src="Coral bleaching.jpg" alt="Coral bleaching">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#stripes" style="text-decoration: none; color: inherit;">
-                            Upheaval
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Projet Color Studies -->
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <a href="#Color-studies">
-                            <img src="Etude-bleu2.jpg" alt="Etude-bleu2">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
-                            Color studies
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Projet Abstractions -->
-                <div class="gallery-item">
-                    <div class="gallery-image">   
-                        <a href="#Abstractions">
-                            <img src="Duo-rouge.jpg" alt="Blue Studies">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#Abstractions" style="text-decoration: none; color: inherit;">
-                            Abstractions
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Projet Photos -->
-                <div class="gallery-item">
-                    <div class="gallery-image">   
-                        <a href="#photographie">
-                            <img src="Photo1.jpg" alt="Photo1">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#photographie" style="text-decoration: none; color: inherit;">
-                            Photography
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Ajouter d'autres blocs -->
-            </div>
-        </section>
-
-        <!-- Page projet Upheaval -->
         <section id="stripes">
             
             <div class="project-header">
@@ -596,7 +610,7 @@
             <div class="gallery-container">               
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Coral bleaching.jpg', 'Coral bleaching 1980-2018, 40x50cm, Acrylic on canvas')">   
+                    <div class="gallery-image" onclick="openLightbox('Coral bleaching.jpg', 'Coral bleaching 1980-2018, 40x50cm, Acrylic on canvas', true)">   
                         <img src="Coral bleaching.jpg" alt="Coral bleaching">
                     </div>
                     <div class="gallery-description">
@@ -605,7 +619,7 @@
                 </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Macroplastic accumulation.JPG', 'Macroplastic accumulation 1950-2016, 40x50cm, Acrylic on canvas')">   
+                    <div class="gallery-image" onclick="openLightbox('Macroplastic accumulation.JPG', 'Macroplastic accumulation 1950-2016, 40x50cm, Acrylic on canvas', true)">   
                         <img src="Macroplastic accumulation.JPG" alt="Macroplastic accumulation">
                     </div>
                     <div class="gallery-description">
@@ -614,7 +628,7 @@
                 </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Ocean acidification 1.jpg', 'Ocean acidification 1985-2022, 40x50cm, Acrylic on canvas')">   
+                    <div class="gallery-image" onclick="openLightbox('Ocean acidification 1.jpg', 'Ocean acidification 1985-2022, 40x50cm, Acrylic on canvas', true)">   
                         <img src="Ocean acidification 1.jpg" alt="Ocean acidification 1">
                     </div>
                     <div class="gallery-description">
@@ -623,7 +637,7 @@
                 </div>
                
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Freshwater cycles 2002-2024.JPG', 'Freshwater cycles 2002-2024, 40x50cm, Acrylic on canvas')">   
+                    <div class="gallery-image" onclick="openLightbox('Freshwater cycles 2002-2024.JPG', 'Freshwater cycles 2002-2024, 40x50cm, Acrylic on canvas', true)">   
                         <img src="Freshwater cycles 2002-2024.JPG" alt="Freshwater cycles">
                     </div>
                     <div class="gallery-description">
@@ -632,7 +646,7 @@
                 </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Land-system change_1990-2020.JPG', 'Land-system change 1990-2020, 40x50cm, Acrylic on canvas')">   
+                    <div class="gallery-image" onclick="openLightbox('Land-system change_1990-2020.JPG', 'Land-system change 1990-2020, 40x50cm, Acrylic on canvas', true)">   
                         <img src="Land-system change_1990-2020.JPG" alt="Land-system change">
                     </div>
                     <div class="gallery-description">
@@ -643,8 +657,60 @@
             </div>
             
         </section>
+        
+        <section id="Abstractions">
+            
+            <div class="project-header">
+                <div class="project-description">
+                    <p>Les oeuvres de la série Abstractions sont nées de gestes libres, intuitifs, presque automatiques, où les formes surgissent sans plan préétabli. Elles s'assimilent à la pratique du Doodle Art enrichies par un travail sur la matière et les textures obtenues via des gestes minutieusement répétés dans une forme de "hasard maîtrisé". On pourrait qualifier ces motifs abstraits de "réminiscences intuitives" : ils ne racontent rien de précis et laissent libre cours à l'imagination et à l'interprétation chez le spectateur.</p>
+                </div>
+                <div class="project-title">
+                    Abstractions
+                </div>
+            </div>
+            
+            <div class="gallery-container">
+        
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas', true)">
+                        <img src="Duo-rouge.jpg" alt="Red duo">
+                    </div>
+                    <div class="gallery-description">
+                        Red duo, 60x80cm, Acrylic on canvas
+                    </div>
+                </div>
 
-        <!-- Page projet Color studies -->
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Duo-bleu.jpg', 'Blue duo, 60x80cm, Acrylic on canvas', true)">
+                        <img src="Duo-bleu.jpg" alt="Blue duo">
+                    </div>
+                    <div class="gallery-description">
+                        Blue duo, 60x80cm, Acrylic on canvas
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Agathe.jpg', 'Agathe, 30x21cm, Acrylic on paper')">
+                        <img src="Agathe.jpg" alt="Agathe">
+                    </div>
+                    <div class="gallery-description">
+                        Agathe, 30x21cm, Acrylic on paper
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
+                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
+                    </div>
+                    <div class="gallery-description">
+                        Blue study, 21x30cm, Acrylic on paper
+                    </div>
+                </div>
+
+            </div>
+            
+        </section>
+
         <section id="Color-studies">
 
             <div class="project-header">
@@ -676,7 +742,7 @@
                     </div>
                 </div>
 
-                                <div class="gallery-item">
+                <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('BandesBleues.jpg', 'White and blue stripes, 100x120cm, Acrylic on canvas')">   
                         <img src="BandesBleues.jpg" alt="White and blue stripes">
                     </div>
@@ -721,66 +787,10 @@
                     </div>
                 </div>
 
-                <!-- Ajouter d'autres blocs -->
-            </div>
+                </div>
             
         </section>
 
-        <!-- Page projet Abstractions -->
-        <section id="Abstractions">
-            
-            <div class="project-header">
-                <div class="project-description">
-                    <p>Les oeuvres de la série Abstractions sont nées de gestes libres, intuitifs, presque automatiques, où les formes surgissent sans plan préétabli. Elles s'assimilent à la pratique du Doodle Art enrichies par un travail sur la matière et les textures obtenues via des gestes minutieusement répétés dans une forme de "hasard maîtrisé". On pourrait qualifier ces motifs abstraits de "réminiscences intuitives" : ils ne racontent rien de précis et laissent libre cours à l'imagination et à l'interprétation chez le spectateur.</p>
-                </div>
-                <div class="project-title">
-                    Abstractions
-                </div>
-            </div>
-            
-            <div class="gallery-container">
-        
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-rouge.jpg" alt="Red duo">
-                    </div>
-                    <div class="gallery-description">
-                        Red duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Duo-bleu.jpg', 'Blue duo, 60x80cm, Acrylic on canvas')">
-                        <img src="Duo-bleu.jpg" alt="Blue duo">
-                    </div>
-                    <div class="gallery-description">
-                        Blue duo, 60x80cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Agathe.jpg', 'Agathe, 30x21cm, Acrylic on paper')">
-                        <img src="Agathe.jpg" alt="Agathe">
-                    </div>
-                    <div class="gallery-description">
-                        Agathe, 30x21cm, Acrylic on paper
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
-                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
-                    </div>
-                    <div class="gallery-description">
-                        Blue study, 21x30cm, Acrylic on paper
-                    </div>
-                </div>
-
-            </div>
-            
-        </section>
-
-        <!-- Page projet Photographie -->
         <section id="photographie">
 
             <div class="project-header">
@@ -868,14 +878,23 @@
             </div>
         </section>
 
-        <!-- Section Contact -->
-        <section id="contact">
+<section id="contact">
             <div class="bio-container">
+                
                 <div class="bio-content">
                     <div class="bio-text">
-                        <p>Artiste autodidacte, j’ai débuté mon parcours par une formation en Marché de l’art, nourrissant très tôt une passion pour l'art, notamment la peinture. En parallèle de mes différentes activités, je ne cesse donc de pratiquer ce qui m'anime le plus : la création. Mark Rothko, Lucas Arruda, Claire Chesnier ou encore Thomas Devaux comptent parmi les artistes qui m'inspirent à travers leurs travaux en lien avec la lumière, la matière et la couleur.</p>
+                        <img src="photo_contact.jpg" alt="Photo de l'artiste" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <div class="gallery-description">
+                          
+                    </div>
+                </div>
+                
+                <div class="bio-content">
+                    <div class="bio-text">
+                        <p>Artiste autodidacte, j’ai débuté mon parcours par une formation en Marché de l’art, nourrissant très tôt une passion pour la peinture. En parallèle de mes différentes activités, je ne cesse donc de pratiquer ce qui m'anime le plus : la création.</p>
                         <br>
-                        <p>Mon travail, que je qualifierais "d'exploratoire", mêle expérimentations techniques, recherches chromatiques et questionnements intérieurs. Ainsi, je considère chaque série comme une étape singulière dans un parcours de découverte de soi et de notre environnement. </p>
+                        <p>Mon travail mêle expérimentations techniques, recherches chromatiques et questionnements intérieurs. La nature, les émotions, les sentiments, les sensations, constituent autant de sources d'inspiration et de pistes de réflexion dans mes recherches plastiques sur la lumière, la matière et la couleur. Ainsi, chaque série constitue pour moi une étape singulière dans un parcours de découverte de soi et de notre environnement.</p>
                         <br>
                         <p>Arthur Evrard</p>
                     </div>
@@ -883,6 +902,7 @@
                           
                     </div>
                 </div>
+                
                 <div class="bio-content">
                     <div class="contact-info">
                         <p>Contact : evrard.arthur@gmail.com</p>
@@ -896,24 +916,106 @@
         </section>
     </main>
 
-    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
+        
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+
         <div class="lightbox-content">
-            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
             <img src="" alt="Œuvre en grand format" class="lightbox-image" id="lightbox-image">
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
+        
+        <button class="lightbox-nav-button" id="prevButton" style="display: none;">&#10094;</button>
+        <button class="lightbox-nav-button" id="nextButton" style="display: none;">&#10095;</button>
     </div>
 
     <script>
-        // Fonction pour ouvrir la lightbox
-        function openLightbox(imageSrc, caption) {
-            const lightbox = document.getElementById('lightbox');
+        // Variables globales pour le carrousel
+        let currentImageIndex = 0;
+        let carouselImages = [];
+        let carouselCaptions = [];
+        let isCarouselActive = false;
+
+        /**
+         * Fonction pour obtenir les données du carrousel. 
+         * MODIFIÉE : Gère le cas spécial de 'Duo-rouge.jpg' (1 détail) et le cas général (2 détails).
+         */
+        function getCarouselData(baseImageSrc, baseCaption) {
+            const baseName = baseImageSrc.substring(0, baseImageSrc.lastIndexOf('.'));
+            const extension = baseImageSrc.substring(baseImageSrc.lastIndexOf('.'));
+            
+            let images = [baseImageSrc];
+            let captions = [baseCaption];
+
+            if (baseImageSrc === 'Duo-rouge.jpg') {
+                // Cas spécial pour 'Red duo': 1 seule image de détail (Total 2 images)
+                images.push(baseName + '-1' + extension);
+                captions.push(baseCaption + ' - Détail 1');
+            } else {
+                // Cas général pour tous les autres carrousels: 2 images de détail (Total 3 images)
+                images.push(baseName + '-1' + extension);
+                images.push(baseName + '-2' + extension);
+
+                captions.push(baseCaption + ' - Détail 1');
+                captions.push(baseCaption + ' - Détail 2');
+            }
+            
+            return { images, captions };
+        }
+
+        // Fonction pour mettre à jour l'image et la légende de la lightbox
+        function updateLightboxContent(index) {
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxCaption = document.getElementById('lightbox-caption');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            if (isCarouselActive) {
+                // S'assurer que les boutons sont visibles
+                prevButton.style.display = 'block';
+                nextButton.style.display = 'block';
+                
+                // Mettre à jour le contenu
+                lightboxImage.src = carouselImages[index];
+                lightboxCaption.textContent = carouselCaptions[index];
+                
+                // Mettre à jour l'état des boutons (masquer si au début/fin de la boucle simple)
+                prevButton.disabled = (index === 0);
+                nextButton.disabled = (index === carouselImages.length - 1);
+
+            } else {
+                // Si pas de carrousel, afficher l'image initiale
+                lightboxImage.src = carouselImages[0];
+                lightboxCaption.textContent = carouselCaptions[0];
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
             
-            lightboxImage.src = imageSrc;
-            lightboxCaption.textContent = caption;
+            currentImageIndex = index;
+        }
+
+
+        // Fonction pour ouvrir la lightbox
+        function openLightbox(imageSrc, caption, carouselEnabled = false) {
+            const lightbox = document.getElementById('lightbox');
+            
+            isCarouselActive = carouselEnabled;
+            
+            if (carouselEnabled) {
+                // Initialiser les données du carrousel avec la logique de la fonction getCarouselData
+                const data = getCarouselData(imageSrc, caption);
+                carouselImages = data.images;
+                carouselCaptions = data.captions;
+                currentImageIndex = 0;
+            } else {
+                // Pour les sections sans carrousel (comportement par défaut)
+                carouselImages = [imageSrc];
+                carouselCaptions = [caption];
+                currentImageIndex = 0;
+            }
+
+            updateLightboxContent(currentImageIndex);
+            
             lightbox.classList.add('active');
             
             // Empêcher le défilement de la page quand la lightbox est ouverte
@@ -925,21 +1027,58 @@
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             
+            // Réinitialiser les variables
+            isCarouselActive = false;
+            carouselImages = [];
+            carouselCaptions = [];
+            currentImageIndex = 0;
+
+            // Masquer les boutons de carrousel au cas où
+            document.getElementById('prevButton').style.display = 'none';
+            document.getElementById('nextButton').style.display = 'none';
+            
             // Réactiver le défilement de la page
             document.body.style.overflow = 'auto';
         }
+
+        // Fonction pour passer à l'image précédente
+        function prevImage() {
+            if (isCarouselActive && currentImageIndex > 0) {
+                updateLightboxContent(currentImageIndex - 1);
+            }
+        }
+
+        // Fonction pour passer à l'image suivante
+        function nextImage() {
+            if (isCarouselActive && currentImageIndex < carouselImages.length - 1) {
+                updateLightboxContent(currentImageIndex + 1);
+            }
+        }
+
+        // Événements des boutons de navigation
+        document.getElementById('prevButton').addEventListener('click', prevImage);
+        document.getElementById('nextButton').addEventListener('click', nextImage);
         
-        // Fermer la lightbox quand on clique en dehors de l'image
+        // Fermer la lightbox quand on clique en dehors de la zone d'image/légende/boutons
         document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this) {
+            // Si l'élément cliqué est le conteneur principal de la lightbox (le fond)
+            if (e.target.id === 'lightbox') {
                 closeLightbox();
             }
+            // Note: Le bouton de fermeture est géré par son onclick="closeLightbox()"
         });
+
         
-        // Fermer la lightbox avec la touche Échap
+        // Fermer la lightbox avec la touche Échap et naviguer avec les flèches du clavier
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
             }
         });
     </script>
