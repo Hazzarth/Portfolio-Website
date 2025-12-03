@@ -176,96 +176,95 @@
             opacity: 1;
             visibility: visible;
         }
-        
-        .lightbox-content {
+
+        /* NOUVEAU: Wrapper principal pour le contenu de la lightbox */
+        .lightbox-wrapper { 
+            display: flex;
+            flex-direction: column; /* Stacker le bloc image/flèches et la légende */
+            align-items: center;
             max-width: 90%;
             max-height: 90%;
-            position: relative;
-            display: flex; 
+        }
+
+        /* NOUVEAU: Conteneur de l'image et des flèches */
+        .lightbox-main-content {
+            display: flex;
             align-items: center;
+            justify-content: center;
+            margin-bottom: 15px; /* Espace entre le bloc image/flèches et la légende */
+            /* Limite la hauteur disponible pour l'image en laissant de la place au bouton de fermeture et à la légende */
+            max-height: calc(100vh - 100px); 
         }
         
+        /* L'image est maintenant réduite pour faire de la place aux flèches sur les côtés */
         .lightbox-image {
-            max-width: 100%;
-            max-height: 90vh;
+            max-width: 80vw; /* Taille max sur desktop (80% de la largeur du viewport) */
+            max-height: 80vh; 
             object-fit: contain;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 0 15px; /* Petit espace entre l'image et les flèches */
         }
         
+        /* Légende */
         .lightbox-caption {
             color: #333;
             font-size: 16px;
-            margin-top: 15px;
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 5px;
-            position: absolute; 
-            bottom: -50px; 
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap; 
+            background-color: transparent; 
+            padding: 0; 
+            border-radius: 0; 
+            position: static; /* Géré par le flux du flex container */
+            transform: none;
+            white-space: normal;
+            max-width: 80%; 
+            line-height: 1.3;
         }
 
-        /* NOUVEAU STYLE : Position fixe de la croix */
+        /* Position fixe de la croix */
         .lightbox-close {
             position: absolute;
-            top: 40px; /* Position fixe par rapport au haut de l'écran */
-            right: 40px; /* Position fixe par rapport à la droite de l'écran */
+            top: 40px; 
+            right: 40px; 
             font-size: 28px;
             color: #333;
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 1011; /* Au-dessus de tout */
+            z-index: 1011; 
         }
 
-        /* Styles spécifiques pour le carrousel */
+        /* Styles spécifiques pour le carrousel - Flèches à côté de l'image */
         .lightbox-nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.5); 
+            position: static; /* Géré par le flux du flex container */
+            transform: none;
+            background: none; 
             border: none;
             color: black; 
-            font-size: 30px;
+            font-size: 40px; /* Légèrement plus grandes car elles sont à côté */
             font-weight: bold;
-            padding: 10px;
+            padding: 5px;
             cursor: pointer;
             z-index: 1010; 
-            transition: background-color 0.2s;
+            transition: color 0.2s; 
             line-height: 1; 
         }
 
         .lightbox-nav-button:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        /* NOUVEAU STYLE : Position fixe des flèches */
-        #prevButton {
-            left: 40px; 
-        }
-
-        #nextButton {
-            right: 40px; 
+            color: #666; 
         }
         
         /* Styles pour la section contact/bio */
 
         .bio-image-block {
-            width: 75%; /* Alignement avec le conteneur .bio-content (contenant le texte) */
+            width: 75%; 
             margin-bottom: 30px; 
             display: flex;
-            /* Le bio-content utilise flex-direction: row-reverse; ce qui fait que le contenu est poussé à droite, 
-               mais ici nous devons le gérer manuellement car il est au-dessus. */
             justify-content: flex-end; 
         }
 
         .bio-image-block img {
-            /* NOUVELLE RÈGLE CLÉ : L'image prend exactement 90% de son parent .bio-image-block (qui est 75% de la page). 
-               Ceci reproduit la largeur de .bio-text (qui est 90% de .bio-content). */
             width: 90%; 
-            max-width: none; /* Supprimer la limite maximale pour laisser le 90% fonctionner */
+            max-width: none; 
             height: auto;
             object-fit: cover;
         }
@@ -402,21 +401,21 @@
             }
 
              .bio-image-block {
-                width: 85%; /* S'aligner avec le .bio-content sur mobile */
-                /* L'image à 90% à l'intérieur de ce 85% devrait toujours être alignée avec le texte. */
+                width: 85%; 
             }
             
             .project-header, .project-description, .back-navigation {
                 width: 85%;
             }
 
-            /* Réajustement des flèches et de la croix sur mobile */
-            #prevButton {
-                left: 10px; 
+            /* Réajustement de la lightbox sur mobile */
+            .lightbox-image {
+                max-width: 70vw; /* Réduit encore l'image pour les petites flèches sur les côtés */
+                max-height: 70vh; 
             }
 
-            #nextButton {
-                right: 10px; 
+            .lightbox-nav-button {
+                font-size: 24px;
             }
 
             .lightbox-close {
@@ -506,20 +505,6 @@
             /* Modification de la taille des titres de projet sur mobile */
             .landing-gallery .gallery-description a {
                 font-size: 18px; 
-            }
-
-            /* Réajustement des flèches et de la croix sur mobile */
-            #prevButton {
-                left: 10px; 
-            }
-
-            #nextButton {
-                right: 10px; 
-            }
-
-            .lightbox-close {
-                top: 10px;
-                right: 10px;
             }
         }
     </style>
@@ -920,13 +905,20 @@
         
         <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
 
-        <div class="lightbox-content">
-            <img src="" alt="Œuvre en grand format" class="lightbox-image" id="lightbox-image">
+        <div class="lightbox-wrapper">
+            
+            <div class="lightbox-main-content">
+                
+                <button class="lightbox-nav-button" id="prevButton" style="display: none;">&#10094;</button>
+                
+                <img src="" alt="Œuvre en grand format" class="lightbox-image" id="lightbox-image">
+                
+                <button class="lightbox-nav-button" id="nextButton" style="display: none;">&#10095;</button>
+            </div>
+            
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
         
-        <button class="lightbox-nav-button" id="prevButton" style="display: none;">&#10094;</button>
-        <button class="lightbox-nav-button" id="nextButton" style="display: none;">&#10095;</button>
     </div>
 
     <script>
@@ -938,7 +930,7 @@
 
         /**
          * Fonction pour obtenir les données du carrousel. 
-         * MODIFIÉE : Gère le cas spécial de 'Duo-rouge.jpg' (1 détail) et le cas général (2 détails).
+         * Gère le cas spécial de 'Duo-rouge.jpg' (1 détail) et le cas général (2 détails).
          */
         function getCarouselData(baseImageSrc, baseCaption) {
             const baseName = baseImageSrc.substring(0, baseImageSrc.lastIndexOf('.'));
