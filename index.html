@@ -134,25 +134,19 @@
         }
         
         /* Navigation avec ancres */
+        /* PAR DEFAUT, TOUTES LES SECTIONS SONT CACHÉES */
+        section {
+            display: none; 
+        }
+
+        /* SEULE LA SECTION CIBLÉE EST AFFICHÉE */
         section:target {
             display: block;
         }
         
-        section:not(:target) {
-            display: none;
-        }
-        
-        /* Par défaut, afficher la section home si aucune cible */
-        section#home {
-            display: block;
-        }
-        
-        body:has(#stripes:target) section#home,
-        body:has(#Color-studies:target) section#home,
-        body:has(#Abstractions:target) section#home,
-        body:has(#photographie:target) section#home,
-        body:has(#contact:target) section#home {
-            display: none;
+        /* Par défaut, afficher la section home si aucune cible n'est spécifiée dans l'URL (si l'URL se termine par /) */
+        body:not(:has(section:target)) section#home {
+             display: block;
         }
         
         /* Lightbox styles */
@@ -526,6 +520,18 @@
             <div class="landing-gallery">
                 <div class="gallery-item">
                     <div class="gallery-image">   
+                        <a href="#progress">
+                            <img src="Dust - Bleu turquoise.jpg" alt="Dust - Bleu turquoise">
+                        </a>
+                    </div>
+                    <div class="gallery-description">
+                        <a href="#progress" style="text-decoration: none; color: inherit;">
+                            In progress
+                        </a>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">   
                         <a href="#stripes">
                             <img src="Coral bleaching.jpg" alt="Coral bleaching">
                         </a>
@@ -577,6 +583,32 @@
                 </div>
                 
                 </div>
+        </section>
+
+        <section id="progress">
+            
+            <div class="gallery-container">   
+                
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Dust - Bleu turquoise.jpg', 'Sans titre, 100x120cm, Acrylic on canvas', true)">   
+                        <img src="Dust - Bleu turquoise.jpg" alt="Dust - Bleu turquoise">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre, 100x120cm, Acrylic on canvas
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightbox('Dust - Rouge et jaune 1.jpg', 'Sans titre, 40x50cm, Acrylic on canvas', true)">   
+                        <img src="Dust - Rouge et jaune 1.jpg" alt="Dust - Rouge et jaune 1">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre, 40x50cm, Acrylic on canvas
+                    </div>
+                </div>
+                  
+            </div>
+            
         </section>
 
         <section id="stripes">
@@ -879,7 +911,7 @@
                     <div class="bio-text">
                         <p>Artiste autodidacte, j’ai débuté mon parcours par une formation en Marché de l’art, nourrissant très tôt une passion pour la peinture. En parallèle de mes différentes activités, je ne cesse donc de pratiquer ce qui m'anime le plus : la création.</p>
                         <br>
-                        <p>Mon travail mêle expérimentations techniques, recherches chromatiques et questionnements intérieurs. La nature, le temps qui passe, les émotions, les sentiments, les sensations, constituent autant de sources d'inspiration et de pistes de réflexion dans mes recherches plastiques. Ainsi, chaque série constitue pour moi une étape singulière dans un parcours de découverte de soi et de notre environnement.</p>
+                        <p>Mon travail mêle expérimentations techniques, recherches chromatiques et questionnements intérieurs. La nature, les émotions, les sentiments, les sensations, constituent autant de sources d'inspiration et de pistes de réflexion dans mes recherches plastiques sur la lumière, la matière et la couleur. Ainsi, chaque série constitue pour moi une étape singulière dans un parcours de découverte de soi et de notre environnement.</p>
                         <br>
                         <p>Arthur Evrard</p>
                     </div>
@@ -928,9 +960,9 @@
         let carouselCaptions = [];
         let isCarouselActive = false;
 
-        /**
+/**
          * Fonction pour obtenir les données du carrousel. 
-         * Gère le cas spécial de 'Duo-rouge.jpg' (1 détail) et le cas général (2 détails).
+         * Gère les cas spéciaux (1 détail) et le cas général (2 détails).
          */
         function getCarouselData(baseImageSrc, baseCaption) {
             const baseName = baseImageSrc.substring(0, baseImageSrc.lastIndexOf('.'));
@@ -938,13 +970,20 @@
             
             let images = [baseImageSrc];
             let captions = [baseCaption];
+            
+            // Les œuvres pour lesquelles on veut un seul détail (2 images au total)
+            const singleDetailImages = [
+                'Duo-rouge.jpg', 
+                'Dust - Rouge et jaune 1.jpg', 
+                'Dust - Bleu turquoise.jpg'
+            ];
 
-            if (baseImageSrc === 'Duo-rouge.jpg') {
-                // Cas spécial pour 'Red duo': 1 seule image de détail (Total 2 images)
+            if (singleDetailImages.includes(baseImageSrc)) {
+                // Cas spécial pour 1 seul détail
                 images.push(baseName + '-1' + extension);
                 captions.push(baseCaption + ' - Détail 1');
             } else {
-                // Cas général pour tous les autres carrousels: 2 images de détail (Total 3 images)
+                // Cas général pour 2 détails
                 images.push(baseName + '-1' + extension);
                 images.push(baseName + '-2' + extension);
 
