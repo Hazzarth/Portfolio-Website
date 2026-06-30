@@ -6,91 +6,121 @@
     <title>Arthur Evrard - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset et styles de base */
+        /* ==========================================================
+           RESET & BASE
+           ========================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Roboto Mono', monospace;
         }
-        
+
         body {
+            display: flex;
             background-color: white;
             color: black;
             line-height: 1.6;
-            display: flex;
         }
-        
-        /* Navigation verticale */
+
+        /* ==========================================================
+           NAVIGATION
+           ========================================================== */
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 150px;
             height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            padding-top: 30px;
-            padding-left: 30px;
+            padding: 30px 0 10px 30px;
             background-color: white;
-            z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            justify-content: flex-start; /* Aligne tout en haut */
+            justify-content: flex-start;
+            z-index: 100;
         }
-        
+
         .logo-container {
             margin-bottom: 5px;
-            cursor: pointer
+            cursor: pointer;
         }
-        
+
         .logo {
             width: 40px;
             height: 40px;
             object-fit: contain;
-            cursor: pointer
+            cursor: pointer;
         }
-        
+
         .nav-links {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-top: 10px; /* espace sous le logo */
-            padding-bottom: 10px; /* Même valeur que le padding-top de nav */
+            margin-top: 10px;
         }
-        
+
         .nav-links a {
             margin-bottom: 5px;
             text-decoration: none;
             color: black;
             cursor: pointer;
         }
-        
-        /* Style structure principale avec décalage pour la navigation */
+
+        /* ==========================================================
+           STRUCTURE PRINCIPALE
+           ========================================================== */
         main {
             flex: 1;
-            margin-left: 150px; /* Correspond à la largeur de la navigation */
+            margin-left: 150px;
             width: calc(100% - 150px);
         }
-        
-        /* Style pour toutes les galeries */
-        .gallery-container, .landing-gallery {
+
+        /* Navigation par ancres : une seule section visible à la fois */
+        section {
+            display: none;
+        }
+
+        section:target {
+            display: block;
+        }
+
+        body:not(:has(section:target)) section#home {
+            display: block;
+        }
+
+        /* ==========================================================
+           GALERIES (communes à toutes les sections)
+           ========================================================== */
+        .gallery-container,
+        .landing-gallery,
+        .bio-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 100%;
             padding-top: 30px;
             padding-bottom: 30px;
-            max-width: 100%;
         }
-        
-        .gallery-item {
-            width: 75%; /* Largeur fixe pour toutes les galeries */
+
+        .bio-container {
+            padding-bottom: 50px;
+        }
+
+        .gallery-item,
+        .bio-content {
+            width: 75%;
             margin-bottom: 150px;
             display: flex;
-            flex-direction: row-reverse; /* Items en ligne pour desktop */
+            flex-direction: row-reverse;
             align-items: flex-start;
             justify-content: flex-end;
         }
-        
+
+        .bio-content {
+            margin-bottom: 30px;
+        }
+
         .gallery-image {
             width: 90%;
             background-color: white;
@@ -101,55 +131,76 @@
             position: relative;
             cursor: pointer;
         }
-        
+
         .gallery-image img {
             width: 100%;
             height: auto;
             object-fit: contain;
             transition: transform 0.3s ease-in-out;
         }
-        
+
         .gallery-image:hover img {
             transform: scale(1.05);
         }
-        
+
         .gallery-description {
             width: 50%;
+            padding-right: 100px;
             font-size: 14px;
             color: #333;
-            padding-right: 100px;
             text-align: left;
-            position: relative;
-            right: auto;
         }
 
         .landing-gallery .gallery-description a {
             font-size: 20px;
             font-weight: 200;
         }
-        
-        /* Pour cacher les sections non actives */
-        .hidden {
-            display: none;
-        }
-        
-        /* Navigation avec ancres */
-        /* PAR DEFAUT, TOUTES LES SECTIONS SONT CACHÉES */
-        section {
-            display: none; 
+
+        /* ==========================================================
+           SECTION BIO / CONTACT
+           ========================================================== */
+        .bio-text {
+            width: 90%;
+            margin-bottom: 30px;
+            text-align: justify;
         }
 
-        /* SEULE LA SECTION CIBLÉE EST AFFICHÉE */
-        section:target {
-            display: block;
+        .contact-info {
+            width: 90%;
+            margin-top: 20px;
         }
-        
-        /* Par défaut, afficher la section home si aucune cible n'est spécifiée dans l'URL (si l'URL se termine par /) */
-        body:not(:has(section:target)) section#home {
-             display: block;
+
+        /* ==========================================================
+           EN-TÊTE DE PAGE PROJET
+           ========================================================== */
+        .project-header {
+            width: 75%;
+            margin: 30px auto 50px auto;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: flex-start;
+            justify-content: flex-end;
         }
-        
-        /* Lightbox styles */
+
+        .project-title {
+            width: 50%;
+            padding-right: 100px;
+            font-size: 20px;
+            font-weight: 200;
+            text-align: left;
+        }
+
+        .project-description {
+            width: 90%;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* ==========================================================
+           LIGHTBOX
+           ========================================================== */
         .lightbox {
             position: fixed;
             top: 0;
@@ -160,252 +211,147 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
         }
-        
+
         .lightbox.active {
             opacity: 1;
             visibility: visible;
         }
 
-        /* NOUVEAU: Wrapper principal pour le contenu de la lightbox */
-        .lightbox-wrapper { 
+        .lightbox-wrapper {
             display: flex;
-            flex-direction: column; /* Stacker le bloc image/flèches et la légende */
+            flex-direction: column;
             align-items: center;
             max-width: 90%;
             max-height: 90%;
         }
 
-        /* NOUVEAU: Conteneur de l'image et des flèches */
         .lightbox-main-content {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px; /* Espace entre le bloc image/flèches et la légende */
-            /* Limite la hauteur disponible pour l'image en laissant de la place au bouton de fermeture et à la légende */
-            max-height: calc(100vh - 100px); 
-        }
-        
-        /* L'image est maintenant réduite pour faire de la place aux flèches sur les côtés */
-        .lightbox-image {
-            max-width: 80vw; /* Taille max sur desktop (80% de la largeur du viewport) */
-            max-height: 80vh; 
-            object-fit: contain;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 0 15px; /* Petit espace entre l'image et les flèches */
-        }
-        
-        /* Légende */
-        .lightbox-caption {
-            color: #333;
-            font-size: 16px;
-            text-align: center;
-            background-color: transparent; 
-            padding: 0; 
-            border-radius: 0; 
-            position: static; /* Géré par le flux du flex container */
-            transform: none;
-            white-space: normal;
-            max-width: 80%; 
-            line-height: 1.3;
+            margin-bottom: 15px;
+            max-height: calc(100vh - 100px);
         }
 
-        /* Position fixe de la croix */
+        .lightbox-image {
+            max-width: 80vw;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 0 15px;
+        }
+
+        .lightbox-caption {
+            max-width: 80%;
+            font-size: 16px;
+            line-height: 1.3;
+            color: #333;
+            text-align: center;
+        }
+
         .lightbox-close {
             position: absolute;
-            top: 40px; 
-            right: 40px; 
+            top: 40px;
+            right: 40px;
             font-size: 28px;
             color: #333;
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 1011; 
+            z-index: 1011;
         }
 
-        /* Styles spécifiques pour le carrousel - Flèches à côté de l'image */
         .lightbox-nav-button {
-            position: static; /* Géré par le flux du flex container */
-            transform: none;
-            background: none; 
+            background: none;
             border: none;
-            color: black; 
-            font-size: 40px; /* Légèrement plus grandes car elles sont à côté */
+            color: black;
+            font-size: 40px;
             font-weight: bold;
+            line-height: 1;
             padding: 5px;
             cursor: pointer;
-            z-index: 1010; 
-            transition: color 0.2s; 
-            line-height: 1; 
+            transition: color 0.2s;
+            z-index: 1010;
         }
 
         .lightbox-nav-button:hover {
-            color: #666; 
-        }
-        
-        /* Styles pour la section contact/bio */
-
-        .bio-image-block {
-            width: 75%; 
-            margin-bottom: 30px; 
-            display: flex;
-            justify-content: flex-end; 
+            color: #666;
         }
 
-        .bio-image-block img {
-            width: 90%; 
-            max-width: none; 
-            height: auto;
-            object-fit: cover;
-        }
-
-        .bio-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 30px;
-            padding-bottom: 50px;
-            max-width: 100%;
-        }
-        
-        .bio-content {
-            width: 75%;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: flex-start;
-            justify-content: flex-end;
-        }
-        
-        .bio-text {
-            width: 90%;
-            margin-bottom: 30px;
-            text-align: justify;
-        }
-        
-        .contact-info {
-            width: 90%;
-            margin-top: 20px;
-        }
-        
-        /* Styles pour les pages de projet */
-        .project-header {
-            width: 75%;
-            margin: 30px auto 50px auto;
-            padding-top: 30px;
-            display: flex;
-            flex-direction: row-reverse; 
-            align-items: flex-start;
-            justify-content: flex-end;
-        }
-
-        .project-title {
-            width: 50%; 
-            font-size: 20px;
-            font-weight: 200;
-            text-align: left;
-            padding-right: 100px; 
-            position: relative;
-            right: auto;
-        }
-
-        .project-description {
-            width: 90%; 
-            line-height: 1.6;
-            text-align: justify;
-            font-size: 14px;
-        }
-        
-        .back-navigation {
-            width: 75%;
-            margin: 20px auto;
-            text-align: left;
-        }
-        
-        .back-navigation a {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .back-navigation a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Media queries pour la responsivité */
+        /* ==========================================================
+           RESPONSIVE
+           ========================================================== */
         @media screen and (max-width: 768px) {
             nav {
                 width: 70px;
                 padding-left: 10px;
             }
-            
+
             main {
                 margin-left: 95px;
                 margin-right: 2px;
                 width: calc(100% - 70px);
             }
-            
+
             .logo {
                 width: 30px;
                 height: 30px;
             }
-            
+
             .nav-links a {
+                margin-bottom: 0;
                 font-size: 14px;
-                margin-bottom: 0px;
             }
-            
-            .gallery-item, .bio-content {
-                width: 85%;
-                margin-bottom: 30px;
-            }
-            
-            .gallery-container, .landing-gallery, .bio-container {
+
+            .gallery-container,
+            .landing-gallery,
+            .bio-container {
                 padding-right: 0;
             }
-            
-            .gallery-item, .bio-content {
+
+            .gallery-item,
+            .bio-content {
+                width: 85%;
+                margin-bottom: 30px;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
-                margin-bottom: 30px;
             }
-            
-            .gallery-image, .bio-text, .contact-info {
+
+            .gallery-image,
+            .bio-text,
+            .contact-info {
                 width: 90%;
                 height: auto;
             }
-            
+
             .gallery-description {
                 width: 90%;
-                padding-right: 0;
-                text-align: center;
                 margin-top: 8px;
+                padding-right: 0;
                 font-size: 11px;
+                text-align: center;
             }
-            
+
             .bio-text {
                 font-size: 13px;
                 text-align: left;
             }
 
-             .bio-image-block {
-                width: 85%; 
-            }
-            
-            .project-header, .project-description, .back-navigation {
+            .project-header,
+            .project-description,
+            .back-navigation {
                 width: 85%;
             }
 
-            /* Réajustement de la lightbox sur mobile */
             .lightbox-image {
-                max-width: 70vw; /* Réduit encore l'image pour les petites flèches sur les côtés */
-                max-height: 70vh; 
+                max-width: 70vw;
+                max-height: 70vh;
             }
 
             .lightbox-nav-button {
@@ -417,78 +363,22 @@
                 right: 10px;
             }
         }
-        
+
         @media screen and (max-width: 480px) {
-            nav {
-                width: 70px;
-                padding-left: 10px;
-            }
-            
-            main {
-                margin-left: 95px;
-                margin-right: 2px;
-                width: calc(100% - 70px);
-            }
-            
-            .logo {
-                width: 30px;
-                height: 30px;
-            }
-            
-            .nav-links a {
-                font-size: 14px;
-                margin-bottom: 0px;
-            }
-            
-            .gallery-item, .bio-content {
-                width: 85%;
-                margin-bottom: 30px;
-            }
-            
-            .gallery-container, .landing-gallery, .bio-container {
-                padding-right: 0;
-            }
-            
-            .gallery-item, .bio-content {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                margin-bottom: 30px;
-            }
-            
-            .gallery-image, .bio-text, .contact-info {
-                width: 90%;
-                height: auto;
-            }
-            
             .gallery-description {
-                width: 90%;
-                padding-right: 0;
                 text-align: left;
-                margin-top: 8px;
-                font-size: 11px;
-            }
-            
-            .bio-text {
-                font-size: 13px;
-                text-align: left;
-            }
-            
-            .project-header, .project-description, .back-navigation {
-                width: 85%;
             }
 
-            /* Modification de la structure du project-header sur mobile */
             .project-header {
                 flex-direction: column;
                 align-items: flex-end;
             }
 
             .project-title {
-                order: -1; 
+                order: -1;
                 width: 90%;
-                padding-right: 0;
                 margin-bottom: 11px;
+                padding-right: 0;
             }
 
             .project-description {
@@ -496,9 +386,8 @@
                 text-align: left;
             }
 
-            /* Modification de la taille des titres de projet sur mobile */
             .landing-gallery .gallery-description a {
-                font-size: 18px; 
+                font-size: 18px;
             }
         }
     </style>
@@ -516,12 +405,16 @@
     </nav>
 
     <main>
+        <!-- ============================================================
+             ACCUEIL
+             ============================================================ -->
         <section id="home">
             <div class="landing-gallery">
+
                 <div class="gallery-item">
-                    <div class="gallery-image">   
+                    <div class="gallery-image">
                         <a href="#progress">
-                            <img src="Galerie_Dust.png" alt="Dust -Galerie">
+                            <img src="Galerie_Dust.png" alt="Dust - Galerie">
                         </a>
                     </div>
                     <div class="gallery-description">
@@ -530,23 +423,11 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="gallery-item">
-                    <div class="gallery-image">   
-                        <a href="#stripes">
-                            <img src="Coral bleaching.jpg" alt="Coral bleaching">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#stripes" style="text-decoration: none; color: inherit;">
-                            Upheaval
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-image">   
+                    <div class="gallery-image">
                         <a href="#Abstractions">
-                            <img src="Duo-rouge.jpg" alt="Blue Studies">
+                            <img src="Abstract - Bleu Profond - Paysage.png" alt="Abstractions">
                         </a>
                     </div>
                     <div class="gallery-description">
@@ -555,24 +436,11 @@
                         </a>
                     </div>
                 </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <a href="#Color-studies">
-                            <img src="Etude-bleu2.jpg" alt="Etude-bleu2">
-                        </a>
-                    </div>
-                    <div class="gallery-description">
-                        <a href="#Color-studies" style="text-decoration: none; color: inherit;">
-                            Color studies
-                        </a>
-                    </div>
-                </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image">   
+                    <div class="gallery-image">
                         <a href="#photographie">
-                            <img src="Photo1.jpg" alt="Photo1">
+                            <img src="Photo1.jpg" alt="Photography">
                         </a>
                     </div>
                     <div class="gallery-description">
@@ -581,17 +449,19 @@
                         </a>
                     </div>
                 </div>
-                
-                </div>
+
+            </div>
         </section>
 
+        <!-- ============================================================
+             IN PROGRESS
+             ============================================================ -->
         <section id="progress">
-            
-            <div class="gallery-container">   
-                
+            <div class="gallery-container">
+
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Dust - Bleu turquoise.JPG', 'Sans titre, 100x120cm, Acrylic on canvas', true)">   
-                        <img src="Dust - Bleu turquoise.JPG" alt="Dust - Bleu turquoise">
+                    <div class="gallery-image" onclick="openLightboxList(['Galerie_Dust.png', 'Dust - Bleu turquoise.JPG'], 'Sans titre, 100x120cm, Acrylic on canvas')">
+                        <img src="Galerie_Dust.png" alt="Sans titre">
                     </div>
                     <div class="gallery-description">
                         Sans titre, 100x120cm, Acrylic on canvas
@@ -599,95 +469,51 @@
                 </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Dust - Rouge et jaune 1.jpg', 'Sans titre, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Dust - Rouge et jaune 1.jpg" alt="Dust - Rouge et jaune 1">
+                    <div class="gallery-image" onclick="openLightboxList(['Dust - Bleu clair.jpg', 'Dust - Bleu clair-1.JPG'], 'Sans titre 1, 100x120cm, Acrylic on canvas')">
+                        <img src="Dust - Bleu clair.jpg" alt="Sans titre 1">
+                    </div>
+                    <div class="gallery-description">
+                        Sans titre 1, 100x120cm, Acrylic on canvas
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightboxList(['Dust - Rouge et jaune - galerie.jpg', 'Dust - Rouge et jaune 1.jpg'], 'Sans titre, 40x50cm, Acrylic on canvas')">
+                        <img src="Dust - Rouge et jaune - galerie.jpg" alt="Sans titre">
                     </div>
                     <div class="gallery-description">
                         Sans titre, 40x50cm, Acrylic on canvas
                     </div>
                 </div>
-                  
+
             </div>
-            
         </section>
 
-        <section id="stripes">
-            
-            <div class="project-header">
-                <div class="project-description">
-                    <p>Le projet Upheaval explore l’impact des activités humaines sur les écosystèmes terrestres et marins. Inspiré des codes de la datavisualisation et des warming stripes du climatologue britannique Ed Hawkins ce projet propose une interprétation visuelle de problématiques environnementales qui me tiennent à coeur. </p>
-                    <br>
-                    <p>L’objectif est de traduire des phénomènes complexes à travers la couleur et la composition, afin de créer un dialogue entre information brute et émotion. </p>
-                </div>
-                <div class="project-title">
-                    Upheaval
-                </div>
-            </div>
-            
-            <div class="gallery-container">               
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Coral bleaching.jpg', 'Coral bleaching 1980-2018, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Coral bleaching.jpg" alt="Coral bleaching">
-                    </div>
-                    <div class="gallery-description">
-                        Coral bleaching 1980-2018, 40x50cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Macroplastic accumulation.JPG', 'Macroplastic accumulation 1950-2016, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Macroplastic accumulation.JPG" alt="Macroplastic accumulation">
-                    </div>
-                    <div class="gallery-description">
-                        Macroplastic accumulation 1950-2016, 40x50cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Ocean acidification 1.jpg', 'Ocean acidification 1985-2022, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Ocean acidification 1.jpg" alt="Ocean acidification 1">
-                    </div>
-                    <div class="gallery-description">
-                        Ocean acidification 1985-2022, 40x50cm, Acrylic on canvas
-                    </div>
-                </div>
-               
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Freshwater cycles 2002-2024.JPG', 'Freshwater cycles 2002-2024, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Freshwater cycles 2002-2024.JPG" alt="Freshwater cycles">
-                    </div>
-                    <div class="gallery-description">
-                        Freshwater cycles 2002-2024, 40x50cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Land-system change_1990-2020.JPG', 'Land-system change 1990-2020, 40x50cm, Acrylic on canvas', true)">   
-                        <img src="Land-system change_1990-2020.JPG" alt="Land-system change">
-                    </div>
-                    <div class="gallery-description">
-                        Land-system change 1990-2020, 40x50cm, Acrylic on canvas
-                    </div>
-                </div>
-                
-            </div>
-            
-        </section>
-        
+        <!-- ============================================================
+             ABSTRACTIONS
+             ============================================================ -->
         <section id="Abstractions">
-            
+
             <div class="project-header">
                 <div class="project-description">
-                    <p>Les oeuvres de la série Abstractions sont nées de gestes libres, intuitifs, presque automatiques, où les formes surgissent sans plan préétabli. Elles s'assimilent à la pratique du Doodle Art enrichies par un travail sur la matière et les textures obtenues via des gestes minutieusement répétés dans une forme de "hasard maîtrisé". On pourrait qualifier ces motifs abstraits de "réminiscences intuitives" : ils ne racontent rien de précis et laissent libre cours à l'imagination et à l'interprétation chez le spectateur.</p>
+                    <p>Les oeuvres de la série Abstractions sont nées de gestes libres, intuitifs, presque automatiques, où les formes surgissent sans plan préétabli. Ces motifs abstraits s'apparentent à une réappropriation du temps lorsque celui-ci est toujours plus fragmenté, dominé par la surstimulation et l'immédiateté dans nos sociétés contemporaines. Ainsi, chaque coup de pinceau représente un instant de vie où le geste symbolise une seconde retrouvée.</p>
                 </div>
                 <div class="project-title">
                     Abstractions
                 </div>
             </div>
-            
+
             <div class="gallery-container">
-        
+
+                <div class="gallery-item">
+                    <div class="gallery-image" onclick="openLightboxList(['Abstract - Bleu Profond - Paysage.PNG', 'Mosaique bleu.JPEG'], 'Mosaique bleu, 150x100cm, Acrylic on canvas')">
+                        <img src="Abstract - Bleu Profond - Paysage.PNG" alt="Blue">
+                    </div>
+                    <div class="gallery-description">
+                        Mosaique bleu, 150x100cm, Acrylic on canvas
+                    </div>
+                </div>
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Duo-rouge.jpg', 'Red duo, 60x80cm, Acrylic on canvas', true)">
                         <img src="Duo-rouge.jpg" alt="Red duo">
@@ -717,7 +543,7 @@
 
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Etude-bleu.jpg', 'Blue study, 21x30cm, Acrylic on paper')">
-                        <img src="Etude-bleu.jpg" alt="Œuvre 3">
+                        <img src="Etude-bleu.jpg" alt="Blue study">
                     </div>
                     <div class="gallery-description">
                         Blue study, 21x30cm, Acrylic on paper
@@ -725,94 +551,16 @@
                 </div>
 
             </div>
-            
         </section>
 
-        <section id="Color-studies">
-
-            <div class="project-header">
-                <div class="project-description">
-                    <p>La série Color studies regroupe des études à l’acrylique centrées sur la couleur, la transparence, la superposition des couches et les variations tonales. Il s'agit d'un travail expérimental ayant pour objectif d'explorer les interactions chromatiques, les effets de lumière et les textures.</p>
-                </div>
-                <div class="project-title">
-                    Color studies
-                </div>
-            </div>
-            
-            <div class="gallery-container">
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-bleu2.jpg', 'Blue study 2, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-bleu2.jpg" alt="Blue Study 2">
-                    </div>
-                    <div class="gallery-description">
-                        Blue Study 2, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Jaune-et-noir-sur-bleu.jpg', 'Yellow and black on blue, 80x100cm, Acrylic on canvas')">
-                        <img src="Jaune-et-noir-sur-bleu.jpg" alt="Œuvre 8">
-                    </div>
-                    <div class="gallery-description">
-                       Yellow and black on blue, 80x100cm, Acrylic on canvas
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('BandesBleues.jpg', 'White and blue stripes, 100x120cm, Acrylic on canvas')">   
-                        <img src="BandesBleues.jpg" alt="White and blue stripes">
-                    </div>
-                    <div class="gallery-description">
-                        White and blue stripes, 100x120cm, Acrylic on canvas
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('EtudeBandesBleues.jpg', 'Blue stripes study, 30x42cm, Acrylic on paper')">
-                        <img src="EtudeBandesBleues.jpg" alt="Blue stripes study">
-                    </div>
-                    <div class="gallery-description">
-                        Blue stripes study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-orange-rouge.JPEG', 'Orange and red study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-orange-rouge.JPEG" alt="Orange and red study">
-                    </div>
-                    <div class="gallery-description">
-                        Orange and red study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir.jpg', 'Black study, 42x30cm, Acrylic on paper')">
-                        <img src="Etude-noir.jpg" alt="Black study">
-                    </div>
-                    <div class="gallery-description">
-                        Black study, 42x30cm, Acrylic on paper
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Etude-noir-et-vert.jpg', 'Black and green study, 30x42cm, Acrylic on paper')">
-                        <img src="Etude-noir-et-vert.jpg" alt="Black and green study">
-                    </div>
-                    <div class="gallery-description">
-                        Black and green study, 30x42cm, Acrylic on paper
-                    </div>
-                </div>
-
-                </div>
-            
-        </section>
-
+        <!-- ============================================================
+             PHOTOGRAPHY
+             ============================================================ -->
         <section id="photographie">
 
             <div class="project-header">
                 <div class="project-description">
-                    <p>Ce projet rassemble des photographies réalisées entre 2018 et aujourd'hui. À l’instar de Hans Hartung, qui évoquait les liens « plus ou moins proches » entre sa pratique picturale et ses photographies, j’explore dans cette série le lien entre deux médiums qui m’ont toujours passionnés, en capturant des fragments d’architecture ou des morceaux de ciel. L’un des objectifs est d’amener le spectateur à s’interroger, à travers ces images ambigües où le regard cherche ses repères, sur la frontière entre abstraction et figuration.</p>
+                    <p>Ce projet rassemble des photographies réalisées entre 2018 et aujourd'hui. À l'instar de Hans Hartung, qui évoquait les liens « plus ou moins proches » entre sa pratique picturale et ses photographies, j'explore dans cette série le lien entre deux médiums qui m'ont toujours passionnés, en capturant des fragments d'architecture ou des morceaux de ciel.</p>
                 </div>
                 <div class="project-title">
                     Photography
@@ -829,7 +577,7 @@
                         C1, 2025
                     </div>
                 </div>
-                
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Photo2.jpg', 'C2, 2025')">
                         <img src="Photo2.jpg" alt="Photo 2">
@@ -838,7 +586,7 @@
                         C2, 2025
                     </div>
                 </div>
-                
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Photo3.jpg', 'C3, 2025')">
                         <img src="Photo3.jpg" alt="Photo 3">
@@ -846,44 +594,44 @@
                     <div class="gallery-description">
                         C3, 2025
                     </div>
-                </div>    
+                </div>
 
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Photo5.jpg', 'PATH1, 2018')">
-                        <img src="Photo5.jpg" alt="PATH1">
+                    <div class="gallery-image" onclick="openLightbox('Photo5.jpg', 'Ribs, 2018')">
+                        <img src="Photo5.jpg" alt="Ribs">
                     </div>
                     <div class="gallery-description">
                         Ribs, 2018
                     </div>
                 </div>
-                
+
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Photo7.jpg', 'PATH2, 2018')">
-                        <img src="Photo7.jpg" alt="PATH2">
+                    <div class="gallery-image" onclick="openLightbox('Photo7.jpg', 'Ribs 2, 2018')">
+                        <img src="Photo7.jpg" alt="Ribs 2">
                     </div>
                     <div class="gallery-description">
                         Ribs 2, 2018
                     </div>
                 </div>
-                
+
                 <div class="gallery-item">
-                    <div class="gallery-image" onclick="openLightbox('Photo8.jpg', 'PATH3, 2018')">
-                        <img src="Photo8.jpg" alt="PATH3">
+                    <div class="gallery-image" onclick="openLightbox('Photo8.jpg', 'Backbone, 2018')">
+                        <img src="Photo8.jpg" alt="Backbone">
                     </div>
                     <div class="gallery-description">
                         Backbone, 2018
                     </div>
-                </div>  
-                
+                </div>
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('photo4.jpg', 'N.F., 2024')">
-                        <img src="photo4.jpg" alt="Photo 4">
+                        <img src="photo4.jpg" alt="N.F.">
                     </div>
                     <div class="gallery-description">
                         N.F., 2024
                     </div>
                 </div>
-                
+
                 <div class="gallery-item">
                     <div class="gallery-image" onclick="openLightbox('Photo6.jpg', 'SB1, 2018')">
                         <img src="Photo6.jpg" alt="SB1">
@@ -892,225 +640,194 @@
                         SB1, 2018
                     </div>
                 </div>
+
             </div>
         </section>
 
-<section id="contact">
+        <!-- ============================================================
+             CONTACT
+             ============================================================ -->
+        <section id="contact">
             <div class="bio-container">
-                
+
                 <div class="bio-content">
                     <div class="bio-text">
                         <img src="photo_contact.jpg" alt="Photo de l'artiste" style="width: 100%; height: auto; display: block;">
                     </div>
-                    <div class="gallery-description">
-                          
-                    </div>
+                    <div class="gallery-description"></div>
                 </div>
-                
+
                 <div class="bio-content">
                     <div class="bio-text">
-                        <p>Artiste autodidacte, j’ai débuté mon parcours par une formation en Marché de l’art, nourrissant très tôt une passion pour la peinture. En parallèle de mes différentes activités, je ne cesse donc de pratiquer ce qui m'anime le plus : la création.</p>
+                        <p>Artiste autodidacte, j'ai débuté mon parcours par une formation en Marché de l'art, nourrissant très tôt une passion pour la peinture. En parallèle de mes différentes activités, je ne cesse donc de pratiquer ce qui m'anime le plus : la création.</p>
                         <br>
                         <p>Mon travail mêle expérimentations techniques, recherches chromatiques et questionnements intérieurs. La nature, les émotions, les sentiments, les sensations, constituent autant de sources d'inspiration et de pistes de réflexion dans mes recherches plastiques sur la lumière, la matière et la couleur. Ainsi, chaque série constitue pour moi une étape singulière dans un parcours de découverte de soi et de notre environnement.</p>
                         <br>
                         <p>Arthur Evrard</p>
                     </div>
-                    <div class="gallery-description">
-                          
-                    </div>
+                    <div class="gallery-description"></div>
                 </div>
-                
+
                 <div class="bio-content">
                     <div class="contact-info">
                         <p>Contact : evrard.arthur@gmail.com</p>
                         <p>Instagram : <a href="https://www.instagram.com/arthurevrardart/" target="_blank">@arthurevrardart</a></p>
                     </div>
-                    <div class="gallery-description">
-                          
-                    </div>
+                    <div class="gallery-description"></div>
                 </div>
+
             </div>
         </section>
     </main>
 
+    <!-- ============================================================
+         LIGHTBOX
+         ============================================================ -->
     <div class="lightbox" id="lightbox">
-        
         <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
 
         <div class="lightbox-wrapper">
-            
             <div class="lightbox-main-content">
-                
                 <button class="lightbox-nav-button" id="prevButton" style="display: none;">&#10094;</button>
-                
                 <img src="" alt="Œuvre en grand format" class="lightbox-image" id="lightbox-image">
-                
                 <button class="lightbox-nav-button" id="nextButton" style="display: none;">&#10095;</button>
             </div>
-            
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
-        
     </div>
 
     <script>
-        // Variables globales pour le carrousel
+        /**
+         * Lightbox / carrousel
+         * --------------------
+         * Deux façons d'ouvrir la lightbox depuis le markup :
+         *
+         * 1) openLightbox(baseImageSrc, baseCaption, true)
+         *    Mode "automatique" (utilisé par Abstractions et Photography) :
+         *    génère le nom des images de détail à partir du nom de base
+         *    (ex: "Duo-bleu.jpg" -> "Duo-bleu-1.jpg", "Duo-bleu-2.jpg").
+         *    Conserve le comportement historique du site.
+         *
+         * 2) openLightboxList(['img1.jpg', 'img2.jpg'], 'Légende')
+         *    Mode "liste explicite" (utilisé par In Progress) : les images
+         *    du carrousel sont fournies directement, dans l'ordre voulu.
+         */
+
         let currentImageIndex = 0;
         let carouselImages = [];
         let carouselCaptions = [];
-        let isCarouselActive = false;
 
-/**
-         * Fonction pour obtenir les données du carrousel. 
-         * Gère les cas spéciaux (1 détail) et le cas général (2 détails).
-         */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+
+        // Œuvres pour lesquelles on ne génère qu'un seul détail (2 images au total)
+        const singleDetailImages = [
+            'Duo-rouge.jpg',
+            'Duo-bleu.jpg',
+            'Dust - Rouge et jaune 1.jpg',
+            'Dust - Bleu turquoise.JPG'
+        ];
+
         function getCarouselData(baseImageSrc, baseCaption) {
-            const baseName = baseImageSrc.substring(0, baseImageSrc.lastIndexOf('.'));
-            const extension = baseImageSrc.substring(baseImageSrc.lastIndexOf('.'));
-            
-            let images = [baseImageSrc];
-            let captions = [baseCaption];
-            
-            // Les œuvres pour lesquelles on veut un seul détail (2 images au total)
-            const singleDetailImages = [
-                'Duo-rouge.jpg', 
-                'Dust - Rouge et jaune 1.jpg', 
-                'Dust - Bleu turquoise.JPG'
-            ];
+            const dotIndex = baseImageSrc.lastIndexOf('.');
+            const baseName = baseImageSrc.substring(0, dotIndex);
+            const extension = baseImageSrc.substring(dotIndex);
 
-            if (singleDetailImages.includes(baseImageSrc)) {
-                // Cas spécial pour 1 seul détail
-                images.push(baseName + '-1' + extension);
-                captions.push(baseCaption + ' - Détail 1');
-            } else {
-                // Cas général pour 2 détails
-                images.push(baseName + '-1' + extension);
+            const images = [baseImageSrc];
+            const captions = [baseCaption];
+
+            images.push(baseName + '-1' + extension);
+            captions.push(baseCaption + ' - Détail 1');
+
+            if (!singleDetailImages.includes(baseImageSrc)) {
                 images.push(baseName + '-2' + extension);
-
-                captions.push(baseCaption + ' - Détail 1');
                 captions.push(baseCaption + ' - Détail 2');
             }
-            
+
             return { images, captions };
         }
 
-        // Fonction pour mettre à jour l'image et la légende de la lightbox
         function updateLightboxContent(index) {
-            const lightboxImage = document.getElementById('lightbox-image');
-            const lightboxCaption = document.getElementById('lightbox-caption');
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-
-            if (isCarouselActive) {
-                // S'assurer que les boutons sont visibles
-                prevButton.style.display = 'block';
-                nextButton.style.display = 'block';
-                
-                // Mettre à jour le contenu
-                lightboxImage.src = carouselImages[index];
-                lightboxCaption.textContent = carouselCaptions[index];
-                
-                // Mettre à jour l'état des boutons (masquer si au début/fin de la boucle simple)
-                prevButton.disabled = (index === 0);
-                nextButton.disabled = (index === carouselImages.length - 1);
-
-            } else {
-                // Si pas de carrousel, afficher l'image initiale
-                lightboxImage.src = carouselImages[0];
-                lightboxCaption.textContent = carouselCaptions[0];
-                prevButton.style.display = 'none';
-                nextButton.style.display = 'none';
-            }
-            
             currentImageIndex = index;
+            lightboxImage.src = carouselImages[index];
+            lightboxCaption.textContent = carouselCaptions[index];
+
+            const showNav = carouselImages.length > 1;
+            prevButton.style.display = showNav ? 'block' : 'none';
+            nextButton.style.display = showNav ? 'block' : 'none';
+
+            if (showNav) {
+                prevButton.disabled = index === 0;
+                nextButton.disabled = index === carouselImages.length - 1;
+            }
         }
 
+        function showLightbox() {
+            updateLightboxContent(0);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // Fonction pour ouvrir la lightbox
+        // Mode automatique : génère les images de détail à partir du nom de base
         function openLightbox(imageSrc, caption, carouselEnabled = false) {
-            const lightbox = document.getElementById('lightbox');
-            
-            isCarouselActive = carouselEnabled;
-            
             if (carouselEnabled) {
-                // Initialiser les données du carrousel avec la logique de la fonction getCarouselData
                 const data = getCarouselData(imageSrc, caption);
                 carouselImages = data.images;
                 carouselCaptions = data.captions;
-                currentImageIndex = 0;
             } else {
-                // Pour les sections sans carrousel (comportement par défaut)
                 carouselImages = [imageSrc];
                 carouselCaptions = [caption];
-                currentImageIndex = 0;
             }
-
-            updateLightboxContent(currentImageIndex);
-            
-            lightbox.classList.add('active');
-            
-            // Empêcher le défilement de la page quand la lightbox est ouverte
-            document.body.style.overflow = 'hidden';
+            showLightbox();
         }
-        
-        // Fonction pour fermer la lightbox
+
+        // Mode liste explicite : les images du carrousel sont fournies directement
+        function openLightboxList(images, caption) {
+            carouselImages = images;
+            carouselCaptions = images.map(() => caption);
+            showLightbox();
+        }
+
         function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
-            
-            // Réinitialiser les variables
-            isCarouselActive = false;
             carouselImages = [];
             carouselCaptions = [];
             currentImageIndex = 0;
-
-            // Masquer les boutons de carrousel au cas où
-            document.getElementById('prevButton').style.display = 'none';
-            document.getElementById('nextButton').style.display = 'none';
-            
-            // Réactiver le défilement de la page
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Fonction pour passer à l'image précédente
         function prevImage() {
-            if (isCarouselActive && currentImageIndex > 0) {
+            if (currentImageIndex > 0) {
                 updateLightboxContent(currentImageIndex - 1);
             }
         }
 
-        // Fonction pour passer à l'image suivante
         function nextImage() {
-            if (isCarouselActive && currentImageIndex < carouselImages.length - 1) {
+            if (currentImageIndex < carouselImages.length - 1) {
                 updateLightboxContent(currentImageIndex + 1);
             }
         }
 
-        // Événements des boutons de navigation
-        document.getElementById('prevButton').addEventListener('click', prevImage);
-        document.getElementById('nextButton').addEventListener('click', nextImage);
-        
-        // Fermer la lightbox quand on clique en dehors de la zone d'image/légende/boutons
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            // Si l'élément cliqué est le conteneur principal de la lightbox (le fond)
+        prevButton.addEventListener('click', prevImage);
+        nextButton.addEventListener('click', nextImage);
+
+        lightbox.addEventListener('click', function (e) {
             if (e.target.id === 'lightbox') {
                 closeLightbox();
             }
-            // Note: Le bouton de fermeture est géré par son onclick="closeLightbox()"
         });
 
-        
-        // Fermer la lightbox avec la touche Échap et naviguer avec les flèches du clavier
-        document.addEventListener('keydown', function(e) {
-            if (document.getElementById('lightbox').classList.contains('active')) {
-                if (e.key === 'Escape') {
-                    closeLightbox();
-                } else if (e.key === 'ArrowLeft') {
-                    prevImage();
-                } else if (e.key === 'ArrowRight') {
-                    nextImage();
-                }
-            }
+        document.addEventListener('keydown', function (e) {
+            if (!lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === 'ArrowLeft') prevImage();
+            else if (e.key === 'ArrowRight') nextImage();
         });
     </script>
 </body>
